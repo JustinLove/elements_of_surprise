@@ -199,6 +199,10 @@ local function potion_materials()
 	table_names(materials_standard)
 	table_names(materials_magic)
 
+	materials[#materials+1] = 'magic_liquid_hp_regeneration'
+	materials[#materials+1] = 'purifying_powder'
+	materials[#materials+1] = 'magic_liquid_teleportation'
+
 	return materials
 end
 
@@ -222,12 +226,10 @@ local function copy_array( from )
 	return new
 end
 
-local function randomize_materials(material_names)
-	local materials = {}
-	local acts_like_names = copy_array(material_names)
-	SetRandomSeed( 331, 7283 )
+local function randomize_materials(looks_names, acts_names, materials)
+	local acts_like_names = copy_array(acts_names)
 	shuffleTable(acts_like_names)
-	for i,name in ipairs(material_names) do
+	for i,name in ipairs(looks_names) do
 		materials[name] = {acts_like_names[i]}
 	end
 
@@ -236,9 +238,12 @@ end
 
 function OnMagicNumbersAndWorldSeedInitialized()
 	if ModSettingGet('material_mimics.randomized_materials') then
-		local mapping = randomize_materials(potion_materials())
-		--dofile_once( "data/scripts/lib/utilities.lua" )
-		--debug_print_table( mapping )
+		local potion = potion_materials()
+		local mapping = {}
+		SetRandomSeed( 331, 7283 )
+		randomize_materials(potion, potion, mapping)
+		dofile_once( "data/scripts/lib/utilities.lua" )
+		debug_print_table( mapping )
 		create_materials(mapping)
 	else
 		create_materials(mimic_materials)
