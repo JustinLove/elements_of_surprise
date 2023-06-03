@@ -8,21 +8,24 @@ local function actual_table(mats)
 	end
 end
 local entity_id = GetUpdatedEntityID()
-local x,y = EntityGetTransform( entity_id )
-SetRandomSeed( x + 5351, y + 743 )
-if Random(1, 100) <= 10 then
-	actual_table(materials_standard)
-	actual_table(materials_magic)
-	materials_magic[#materials_magic+1] = {
-		material = 'actual_magic_liquid_hp_regeneration',
-		cost = 200,
-	}
-	materials_magic[#materials_magic+1] = {
-		material = 'actual_purifying_powder',
-		cost = 200,
-	}
-	materials_magic[#materials_magic+1] = {
-		material = 'actual_magic_liquid_teleportation',
-		cost = 200,
-	}
+print(tostring(entity_id), '===================================')
+if entity_id and entity_id ~= 0 then
+	local x,y = EntityGetTransform( entity_id )
+	SetRandomSeed( x + 5351, y + 743 )
+	if Random(1, 100) <= 10 then
+		actual_table(materials_standard)
+		actual_table(materials_magic)
+		materials_magic[#materials_magic+1] = {
+			material = 'actual_magic_liquid_hp_regeneration',
+			cost = 200,
+		}
+		materials_magic[#materials_magic+1] = {
+			material = 'actual_purifying_powder',
+			cost = 200,
+		}
+		materials_magic[#materials_magic+1] = {
+			material = 'actual_magic_liquid_teleportation',
+			cost = 200,
+		}
+	end
 end

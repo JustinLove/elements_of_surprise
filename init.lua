@@ -11,6 +11,41 @@ function OnPlayerSpawned( player_entity ) -- This runs when player entity has be
 	GameAddFlagRun('MM_FIRST_RUN')
 end
 
+mimic_materials = {
+	lava = {'magic_liquid_berserk'},
+	water = {'liquid_fire'},
+	blood = {'urine'},
+	alcohol = {'magic_liquid_unstable_polymorph'},
+	oil = {'slime'},
+	slime = {'magic_liquid_mana_regeneration'},
+	acid = {'cement'},
+	radioactive_liquid = {'magic_liquid_protection_all'},
+	gunpowder_unstable = {'magic_liquid_invisibility'},
+	liquid_fire = {'water'},
+	blood_cold = {'lava'},
+	magic_liquid_unstable_teleportation = {'acid'},
+	magic_liquid_polymorph = {'magic_liquid_movement_faster'},
+	magic_liquid_random_polymorph = {'magic_liquid_hp_regeneration'},
+	magic_liquid_berserk = {'material_confusion'},
+	magic_liquid_charm = {'magic_liquid_berserk'},
+	magic_liquid_invisibility = {'magic_liquid_worm_attractor'},
+	material_confusion = {'magic_liquid_movement_faster'},
+	magic_liquid_movement_faster = {'slime'},
+	magic_liquid_faster_levitation = {'magic_liquid_unstable_teleportation'},
+	magic_liquid_worm_attractor = {'magic_liquid_teleportation'},
+	magic_liquid_protection_all = {'magic_liquid_polymorph'},
+	magic_liquid_mana_regeneration = {'alcohol'},
+	purifying_powder = {'sodium'},
+	magic_liquid_teleportation = {'slime'},
+	magic_liquid_hp_regeneration = {'poison'},
+	magic_liquid_hp_regeneration_unstable = {'gunpowder_unstable'},
+	blood_worm = {'blood_fungi'},
+	gold = {'gold_radioactive'},
+	snow = {'fungi'},
+	cement = {'acid'},
+	urine = {'magic_liquid_protection_all'},
+}
+
 -- from cheatgui
 local function empty_container_of_materials(idx)
 	for _ = 1, 1000 do -- avoid infinite loop
@@ -73,50 +108,16 @@ function mm_get_material_type( material_name )
 	return "liquid" -- punt, use a flask
 end
 
-mimic_materials = {
-	lava = {'magic_liquid_berserk'},
-	water = {'liquid_fire'},
-	blood = {'urine'},
-	alcohol = {'magic_liquid_unstable_polymorph'},
-	oil = {'slime'},
-	slime = {'magic_liquid_mana_regeneration'},
-	acid = {'cement'},
-	radioactive_liquid = {'magic_liquid_protection_all'},
-	gunpowder_unstable = {'magic_liquid_invisibility'},
-	liquid_fire = {'water'},
-	blood_cold = {'lava'},
-	magic_liquid_unstable_teleportation = {'acid'},
-	magic_liquid_polymorph = {'magic_liquid_movement_faster'},
-	magic_liquid_random_polymorph = {'magic_liquid_hp_regeneration'},
-	magic_liquid_berserk = {'material_confusion'},
-	magic_liquid_charm = {'magic_liquid_berserk'},
-	magic_liquid_invisibility = {'magic_liquid_worm_attractor'},
-	material_confusion = {'magic_liquid_movement_faster'},
-	magic_liquid_movement_faster = {'slime'},
-	magic_liquid_faster_levitation = {'magic_liquid_unstable_teleportation'},
-	magic_liquid_worm_attractor = {'magic_liquid_teleportation'},
-	magic_liquid_protection_all = {'magic_liquid_polymorph'},
-	magic_liquid_mana_regeneration = {'alcohol'},
-	purifying_powder = {'sodium'},
-	magic_liquid_teleportation = {'slime'},
-	magic_liquid_hp_regeneration = {'poison'},
-	magic_liquid_hp_regeneration_unstable = {'gunpowder_unstable'},
-	blood_worm = {'blood_fungi'},
-	gold = {'gold_radioactive'},
-	snow = {'fungi'},
-	cement = {'acid'},
-	urine = {'magic_liquid_protection_all'},
-}
-
 local nxml = dofile_once("mods/material_mimics/files/lib/nxml.lua")
-local function create_materials()
+
+local function create_materials(materials)
 	print('---------------------------------------------')
 	local content = ModTextFileGetContent("data/materials.xml")
 	local xml = nxml.parse(content)
 	local new_elements = {}
 	local wang_color = 0xff3131c0
 
-	for looks_like,list in pairs(mimic_materials) do
+	for looks_like,list in pairs(materials) do
 		local el_looks_like
 		for element in xml:each_child() do
 			if element.attr.name == looks_like then
@@ -184,7 +185,64 @@ local function create_materials()
 	ModTextFileSetContent("data/materials.xml", tostring(xml))
 end
 
-create_materials()
+local function potion_materials()
+	dofile("data/scripts/items/potion.lua")
+	local materials = {}
+
+	local function table_names(mats)
+		local length = #mats
+		for i = 1,length do
+			materials[#materials+1] = mats[i].material
+		end
+	end
+
+	table_names(materials_standard)
+	table_names(materials_magic)
+
+	return materials
+end
+
+
+function shuffleTable( t )
+	assert( t, "shuffleTable() expected a table, got nil" )
+	local iterations = #t
+	local j
+	
+	for i = iterations, 2, -1 do
+		j = Random(1,i)
+		t[i], t[j] = t[j], t[i]
+	end
+end
+
+local function copy_array( from )
+	local new = {}
+	for i = 1,#from do
+		new[i] = from[i]
+	end
+	return new
+end
+
+local function randomize_materials(material_names)
+	local materials = {}
+	local acts_like_names = copy_array(material_names)
+	SetRandomSeed( 331, 7283 )
+	shuffleTable(acts_like_names)
+	for i,name in ipairs(material_names) do
+		materials[name] = {acts_like_names[i]}
+	end
+
+	return materials
+end
+
+function OnMagicNumbersAndWorldSeedInitialized()
+	local mapping = randomize_materials(potion_materials())
+
+	--dofile_once( "data/scripts/lib/utilities.lua" )
+	--debug_print_table( mapping )
+
+	create_materials(mapping)
+	--create_materials(mimic_materials)
+end
 
 -- This code runs when all mods' filesystems are registered
 ModLuaFileAppend( "data/scripts/items/potion.lua", "mods/material_mimics/files/potion.lua" )
