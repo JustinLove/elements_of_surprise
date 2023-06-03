@@ -4,7 +4,10 @@ function OnPlayerSpawned( player_entity ) -- This runs when player entity has be
 	end
 
 	local x,y = EntityGetTransform(player_entity)
-	mm_container('actual_'..'alcohol', x, y )
+	--mm_container('actual_'..'water', x, y )
+	EntityLoad( "data/entities/items/pickup/potion.xml", x, y )
+	EntityLoad( "data/entities/items/pickup/potion.xml", x+1, y )
+	EntityLoad( "data/entities/items/pickup/potion.xml", x+2, y )
 	GameAddFlagRun('MM_FIRST_RUN')
 end
 
@@ -71,16 +74,38 @@ function mm_get_material_type( material_name )
 end
 
 mimic_materials = {
-	magic_liquid_protection_all = {'magic_liquid_polymorph'},
-	magic_liquid_teleportation = {'slime'},
-	magic_liquid_movement_faster = {'slime'},
-	magic_liquid_faster_levitation = {'magic_liquid_unstable_teleportation'},
-	magic_liquid_hp_regeneration = {'poison'},
-	magic_liquid_invisibility = {'magic_liquid_worm_attractor'},
 	lava = {'magic_liquid_berserk'},
 	water = {'liquid_fire'},
 	blood = {'urine'},
 	alcohol = {'magic_liquid_unstable_polymorph'},
+	oil = {'slime'},
+	slime = {'magic_liquid_mana_regeneration'},
+	acid = {'cement'},
+	radioactive_liquid = {'magic_liquid_protection_all'},
+	gunpowder_unstable = {'magic_liquid_invisibility'},
+	liquid_fire = {'water'},
+	blood_cold = {'lava'},
+	magic_liquid_unstable_teleportation = {'acid'},
+	magic_liquid_polymorph = {'magic_liquid_movement_faster'},
+	magic_liquid_random_polymorph = {'magic_liquid_hp_regeneration'},
+	magic_liquid_berserk = {'material_confusion'},
+	magic_liquid_charm = {'magic_liquid_berserk'},
+	magic_liquid_invisibility = {'magic_liquid_worm_attractor'},
+	material_confusion = {'magic_liquid_movement_faster'},
+	magic_liquid_movement_faster = {'slime'},
+	magic_liquid_faster_levitation = {'magic_liquid_unstable_teleportation'},
+	magic_liquid_worm_attractor = {'magic_liquid_teleportation'},
+	magic_liquid_protection_all = {'magic_liquid_polymorph'},
+	magic_liquid_mana_regeneration = {'alcohol'},
+	purifying_powder = {'sodium'},
+	magic_liquid_teleportation = {'slime'},
+	magic_liquid_hp_regeneration = {'poison'},
+	magic_liquid_hp_regeneration_unstable = {'gunpowder_unstable'},
+	blood_worm = {'blood_fungi'},
+	gold = {'gold_radioactive'},
+	snow = {'fungi'},
+	cement = {'acid'},
+	urine = {'magic_liquid_protection_all'},
 }
 
 local nxml = dofile_once("mods/material_mimics/files/lib/nxml.lua")
@@ -116,13 +141,13 @@ local function create_materials()
 			end
 
 			if el_acts_like and el_looks_like then
-				--local wang_color = tonumber(el_looks_like.attr.wang_color, 16)
 				local new_wang_color = string.format("%08x", wang_color)
 				local el = nxml.new_element( 'CellDataChild', {
 					_parent=acts_like,
 					_inherit_reactions="1",
 					name='actual_'..looks_like,
 					ui_name=el_looks_like.attr.ui_name,
+					--ui_name='Actual '..looks_like,
 					wang_color=new_wang_color,
 				})
 				--print(tostring(el_looks_like))
@@ -131,7 +156,7 @@ local function create_materials()
 					el:add_child(nxml.new_element('Graphics', {
 						color = graphics.attr.color,
 						texture_file = graphics.attr.texture_file or '',
-						fire_colors_index = graphics.attr.fire_colors_index or '',
+						fire_colors_index = graphics.attr.fire_colors_index,
 					}))
 				else
 					el:add_child(nxml.new_element('Graphics', {
@@ -139,11 +164,17 @@ local function create_materials()
 						texture_file = '',
 					}))
 				end
+				--[[
 				local effect = el_acts_like:first_of('ParticleEffect')
 				if effect then
 					el:add_child(effect)
 				end
-				print(tostring(el))
+				local explosion = el_acts_like:first_of('ExplosionConfig')
+				if explosion then
+					el:add_child(explosion)
+				end
+				]]
+				--print(tostring(el))
 				new_elements[#new_elements+1] = el
 				wang_color = wang_color + 1
 			end
@@ -156,4 +187,4 @@ end
 create_materials()
 
 -- This code runs when all mods' filesystems are registered
---ModLuaFileAppend( "data/scripts/items/potion.lua", "mods/example/files/potion_appends.lua" )
+ModLuaFileAppend( "data/scripts/items/potion.lua", "mods/material_mimics/files/potion.lua" )

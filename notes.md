@@ -1,0 +1,5 @@
+- handling molten
+- fire effects?
+- material damage
+- gold collection?
+- inheriting from orb poweder crashes
