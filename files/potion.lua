@@ -8,12 +8,10 @@ local function actual_table(mats)
 	end
 end
 local entity_id = GetUpdatedEntityID()
-print(tostring(entity_id), '===================================')
 if entity_id and entity_id ~= 0 then
 	local x,y = EntityGetTransform( entity_id )
 	SetRandomSeed( x + 5351, y + 743 )
 	local potion_mimic_chance = ModSettingGet("material_mimics.potion_mimic_chance") or 10
-	print(tostring(potion_mimic_chance), '+++++++++++++++++++++++++++')
 	if Random(1, 100) <= potion_mimic_chance then
 		actual_table(materials_standard)
 		actual_table(materials_magic)

@@ -111,7 +111,6 @@ end
 local nxml = dofile_once("mods/material_mimics/files/lib/nxml.lua")
 
 local function create_materials(materials)
-	print('---------------------------------------------')
 	local content = ModTextFileGetContent("data/materials.xml")
 	local xml = nxml.parse(content)
 	local new_elements = {}
@@ -165,7 +164,6 @@ local function create_materials(materials)
 						texture_file = '',
 					}))
 				end
-				--[[
 				local effect = el_acts_like:first_of('ParticleEffect')
 				if effect then
 					el:add_child(effect)
@@ -174,7 +172,6 @@ local function create_materials(materials)
 				if explosion then
 					el:add_child(explosion)
 				end
-				]]
 				--print(tostring(el))
 				new_elements[#new_elements+1] = el
 				wang_color = wang_color + 1
@@ -242,8 +239,8 @@ function OnMagicNumbersAndWorldSeedInitialized()
 		local mapping = {}
 		SetRandomSeed( 331, 7283 )
 		randomize_materials(potion, potion, mapping)
-		dofile_once( "data/scripts/lib/utilities.lua" )
-		debug_print_table( mapping )
+		--dofile_once( "data/scripts/lib/utilities.lua" )
+		--debug_print_table( mapping )
 		create_materials(mapping)
 	else
 		create_materials(mimic_materials)
