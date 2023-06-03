@@ -1,5 +1,6 @@
-- handling molten
+- handling molten/vapour
 - fire effects?
 - material damage
 - gold collection?
 - inheriting from orb poweder crashes
+- sacks?

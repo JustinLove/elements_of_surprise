@@ -235,13 +235,14 @@ local function randomize_materials(material_names)
 end
 
 function OnMagicNumbersAndWorldSeedInitialized()
-	local mapping = randomize_materials(potion_materials())
-
-	--dofile_once( "data/scripts/lib/utilities.lua" )
-	--debug_print_table( mapping )
-
-	create_materials(mapping)
-	--create_materials(mimic_materials)
+	if ModSettingGet('material_mimics.randomized_materials') then
+		local mapping = randomize_materials(potion_materials())
+		--dofile_once( "data/scripts/lib/utilities.lua" )
+		--debug_print_table( mapping )
+		create_materials(mapping)
+	else
+		create_materials(mimic_materials)
+	end
 end
 
 -- This code runs when all mods' filesystems are registered

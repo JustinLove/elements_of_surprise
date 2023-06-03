@@ -12,10 +12,27 @@ dofile("data/scripts/lib/mod_settings.lua") -- see this file for documentation o
 -- until the player starts a new game.
 -- ModSettingSetNextValue() will set the buffered value, that will later become visible via ModSettingGet(), unless the setting scope is MOD_SETTING_SCOPE_RUNTIME.
 
-local mod_id = "mimic_materials" -- This should match the name of your mod's folder.
+local mod_id = "material_mimics" -- This should match the name of your mod's folder.
 mod_settings_version = 1 -- This is a magic global that can be used to migrate settings to new mod versions. call mod_settings_get_version() before mod_settings_update() to get the old value. 
 mod_settings = 
 {
+	{
+		id = "randomized_materials",
+		ui_name = "Randomized Materials (applied on new game)",
+		ui_description = "Mimic materials have random effects each game, instead of a single designed set.",
+		value_default = false,
+		scope = MOD_SETTING_SCOPE_NEW_GAME,
+	},
+	{
+		id = "potion_mimic_chance",
+		ui_name = "Potion Mimic Chance",
+		ui_description = "Chance that a potion has a mimic material",
+		value_default = 10,
+		value_min = 0,
+		value_max = 100,
+		value_display_formatting = " $0",
+		scope = MOD_SETTING_SCOPE_RUNTIME,
+	},
 }
 
 -- This function is called to ensure the correct setting values are visible to the game via ModSettingGet(). your mod's settings don't work if you don't have a function like this defined in settings.lua.
