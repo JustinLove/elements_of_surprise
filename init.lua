@@ -1,15 +1,10 @@
-print('init -----------------------------------------')
 function OnPlayerSpawned( player_entity ) -- This runs when player entity has been created
-	print('Spawned --------------------------------')
 	if GameHasFlagRun('MM_FIRST_RUN') then
 		return
 	end
 
-	print('Running Spawned')
 	local x,y = EntityGetTransform(player_entity)
-	mm_container('actual_magic_liquid_protection_all', x, y )
-	mm_container('magic_liquid_protection_all', x, y )
-	mm_container('magic_liquid_polymorph', x, y )
+	mm_container('actual_'..'alcohol', x, y )
 	GameAddFlagRun('MM_FIRST_RUN')
 end
 
@@ -24,7 +19,6 @@ local function empty_container_of_materials(idx)
 end
 
 function mm_container( material_name, x, y )
-	print(material_name, x, y, '--------------------------')
 	local entity
 	if material_name == nil or material_name == "" then
 		return
@@ -76,6 +70,90 @@ function mm_get_material_type( material_name )
 	return "liquid" -- punt, use a flask
 end
 
+mimic_materials = {
+	magic_liquid_protection_all = {'magic_liquid_polymorph'},
+	magic_liquid_teleportation = {'slime'},
+	magic_liquid_movement_faster = {'slime'},
+	magic_liquid_faster_levitation = {'magic_liquid_unstable_teleportation'},
+	magic_liquid_hp_regeneration = {'poison'},
+	magic_liquid_invisibility = {'magic_liquid_worm_attractor'},
+	lava = {'magic_liquid_berserk'},
+	water = {'liquid_fire'},
+	blood = {'urine'},
+	alcohol = {'magic_liquid_unstable_polymorph'},
+}
+
+local nxml = dofile_once("mods/material_mimics/files/lib/nxml.lua")
+local function create_materials()
+	print('---------------------------------------------')
+	local content = ModTextFileGetContent("data/materials.xml")
+	local xml = nxml.parse(content)
+	local new_elements = {}
+	local wang_color = 0xff3131c0
+
+	for looks_like,list in pairs(mimic_materials) do
+		local el_looks_like
+		for element in xml:each_child() do
+			if element.attr.name == looks_like then
+				el_looks_like = element
+			end
+		end
+
+		if not el_looks_like then
+			print('could not find ', looks_like)
+		end
+
+		for i,acts_like in ipairs(list) do
+			local el_acts_like
+			for element in xml:each_child() do
+				if element.attr.name == acts_like then
+					el_acts_like = element
+				end
+			end
+
+			if not_el_acts_like then
+				print('could not find ', acts_like)
+			end
+
+			if el_acts_like and el_looks_like then
+				--local wang_color = tonumber(el_looks_like.attr.wang_color, 16)
+				local new_wang_color = string.format("%08x", wang_color)
+				local el = nxml.new_element( 'CellDataChild', {
+					_parent=acts_like,
+					_inherit_reactions="1",
+					name='actual_'..looks_like,
+					ui_name=el_looks_like.attr.ui_name,
+					wang_color=new_wang_color,
+				})
+				--print(tostring(el_looks_like))
+				local graphics = el_looks_like:first_of('Graphics')
+				if graphics then
+					el:add_child(nxml.new_element('Graphics', {
+						color = graphics.attr.color,
+						texture_file = graphics.attr.texture_file or '',
+						fire_colors_index = graphics.attr.fire_colors_index or '',
+					}))
+				else
+					el:add_child(nxml.new_element('Graphics', {
+						color = el_looks_like.attr.wang_color,
+						texture_file = '',
+					}))
+				end
+				local effect = el_acts_like:first_of('ParticleEffect')
+				if effect then
+					el:add_child(effect)
+				end
+				print(tostring(el))
+				new_elements[#new_elements+1] = el
+				wang_color = wang_color + 1
+			end
+		end
+	end
+	xml:add_children(new_elements)
+	ModTextFileSetContent("data/materials.xml", tostring(xml))
+end
+
+create_materials()
+
 -- This code runs when all mods' filesystems are registered
-ModMaterialsFileAdd( "mods/material_mimics/files/materials.xml" )
 --ModLuaFileAppend( "data/scripts/items/potion.lua", "mods/example/files/potion_appends.lua" )
