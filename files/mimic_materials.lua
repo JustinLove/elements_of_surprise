@@ -1,6 +1,6 @@
 mm_mimic_materials = {
 	lava = {'magic_liquid_berserk'},
-	water = {'liquid_fire'},
+	water = {'radioactive_liquid'},
 	blood = {'urine'},
 	alcohol = {'magic_liquid_unstable_polymorph'},
 	oil = {'slime'},

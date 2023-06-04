@@ -13,6 +13,7 @@ end
 
 function OnMagicNumbersAndWorldSeedInitialized()
 	dofile_once('mods/material_mimics/files/materials.lua')
+	local info = {}
 	if ModSettingGet('material_mimics.randomized_materials') then
 		local potion = mm_potion_materials()
 		local mapping = {}
@@ -20,11 +21,17 @@ function OnMagicNumbersAndWorldSeedInitialized()
 		mm_randomize_materials(potion, potion, mapping)
 		--dofile_once( "data/scripts/lib/utilities.lua" )
 		--debug_print_table( mapping )
-		mm_create_materials(mapping)
+		info = mm_create_materials(mapping)
 	else
 		dofile_once('mods/material_mimics/files/mimic_materials.lua')
-		mm_create_materials(mm_mimic_materials)
+		info = mm_create_materials(mm_mimic_materials)
 	end
+
+	--dofile_once( "data/scripts/lib/utilities.lua" )
+	--debug_print_table( info )
+
+	dofile_once('mods/material_mimics/files/biomes.lua')
+	mm_edit_biomes(info)
 end
 
 ModLuaFileAppend( "data/scripts/items/potion.lua", "mods/material_mimics/files/potion.lua" )
