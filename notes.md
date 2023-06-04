@@ -2,7 +2,7 @@
 - x material damage
 - x gold collection? - nope
 - x passing info to potion
-- ai danger
+- x ai danger
 - pixel scenes? 
 - holy mountain portals
 - Hydroxide, anything else that changes potions

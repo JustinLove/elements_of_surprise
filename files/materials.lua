@@ -44,6 +44,10 @@ function mm_create_materials(materials)
 					ui_name=el_looks_like.attr.ui_name,
 					--ui_name='Actual '..looks_like,
 					wang_color=new_wang_color,
+					danger_radioactive=el_looks_like.attr.danger_radioactive or '0',
+					danger_fire=el_looks_like.attr.danger_fire or '0',
+					danger_water=el_looks_like.attr.danger_water or '0',
+					danger_poison=el_looks_like.attr.danger_poison or '0',
 				})
 				local start,nd = string.find(el_acts_like.attr.tags or '', '[evaporable_custom],',nil,true)
 				if start then
