@@ -1,7 +1,10 @@
 - extending or scanning biomes
-- handling molten/vapour
 - material damage
+- ai danger
+- pixel scenes? 
+- holy mountain portals
 - fire effects?
 - gold collection?
 - Hydroxide, anything else that changes potions
 - sacks?
+- x handling molten/vapour

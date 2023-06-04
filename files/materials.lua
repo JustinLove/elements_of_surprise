@@ -44,6 +44,14 @@ function mm_create_materials(materials)
 					--ui_name='Actual '..looks_like,
 					wang_color=new_wang_color,
 				})
+				local start,nd = string.find(el_acts_like.attr.tags or '', '[evaporable_custom],',nil,true)
+				if start then
+					el.attr.tags = string.gsub(el_acts_like.attr.tags, '%[evaporable_custom%],', '')
+				end
+				start,nd = string.find(el_acts_like.attr.tags or '', '[meltable_metal],',nil,true)
+				if start then
+					el.attr.tags = string.gsub(el_acts_like.attr.tags, '%[meltable_metal%],', '')
+				end
 				--print(tostring(el_looks_like))
 				local graphics = el_looks_like:first_of('Graphics')
 				if graphics then
