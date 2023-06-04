@@ -30,8 +30,11 @@ function OnMagicNumbersAndWorldSeedInitialized()
 	--dofile_once( "data/scripts/lib/utilities.lua" )
 	--debug_print_table( info )
 
-	dofile_once('mods/material_mimics/files/biomes.lua')
-	mm_edit_biomes(info)
+	local natural_material_chance = ModSettingGet('material_mimics.natural_material_chance')
+	if natural ~= 'none' then
+		dofile_once('mods/material_mimics/files/biomes.lua')
+		mm_edit_biomes(info, natural_material_chance)
+	end
 end
 
 ModLuaFileAppend( "data/scripts/items/potion.lua", "mods/material_mimics/files/potion.lua" )

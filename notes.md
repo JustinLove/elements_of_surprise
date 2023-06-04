@@ -1,8 +1,7 @@
-- world materials??
-  RandomMaterials/RandomColor
+- extending or scanning biomes
 - handling molten/vapour
-- fire effects?
 - material damage
+- fire effects?
 - gold collection?
-- sacks?
 - Hydroxide, anything else that changes potions
+- sacks?

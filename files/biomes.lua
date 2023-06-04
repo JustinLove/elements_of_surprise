@@ -1,6 +1,6 @@
 local nxml = dofile_once("mods/material_mimics/files/lib/nxml.lua")
 
-local function build_colors(info)
+local function build_colors(info, real, fake)
 	local colors = {}
 	for normal,mimic in pairs(info.wang_colors) do
 		local opaque = 'ff' .. string.sub(normal, -6)
@@ -8,11 +8,18 @@ local function build_colors(info)
 		if string.sub(default, 1, 2) == 'ff' then
 			default = 'fe' .. string.sub(normal, -6)
 		end
+		local output = {}
+		for i = 1,real do
+			output[#output+1] = default
+		end
+		for i = 1,fake do
+			output[#output+1] = mimic
+		end
 		colors[#colors+1] = nxml.new_element('RandomColor', {
 			input_color=opaque,
-			output_colors=default..","..mimic
+			output_colors=table.concat(output, ',')
 		})
-		--print(tostring(colors[#colors]))
+		print(tostring(colors[#colors]))
 	end
 	return colors
 end
@@ -39,8 +46,22 @@ local function mm_edit_biome(biome, colors)
 	ModTextFileSetContent(biome, tostring(xml))
 end
 
-function mm_edit_biomes(info)
-	local colors = build_colors(info)
+function mm_edit_biomes(info, natural_material_chance)
+	local real = 1
+	local fake = 1
+	if natural_material_chance == 'none' then
+		return
+	elseif natural_material_chance == 'rarely' then
+		real = 4
+		fake = 1
+	elseif natural_material_chance == 'even' then
+		real = 1
+		fake = 1
+	elseif natural_material_chance == 'always' then
+		real = 0
+		fake = 1
+	end
+	local colors = build_colors(info, real, fake)
 	mm_edit_biome("data/biome/coalmine.xml", colors)
 	mm_edit_biome("data/biome/coalmine_alt.xml", colors)
 	mm_edit_biome("data/biome/liquidcave.xml", colors)
