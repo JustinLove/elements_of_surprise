@@ -31,6 +31,9 @@ function OnMagicNumbersAndWorldSeedInitialized()
 		mm_material_info = mm_create_materials(mm_mimic_materials)
 	end
 
+	dofile_once('mods/material_mimics/files/codegen.lua')
+	text = 'mm_material_info='..mm_table_to_string(mm_material_info)
+	ModTextFileSetContent("mods/material_mimics/files/mm_material_info.lua", text)
 	--dofile_once( "data/scripts/lib/utilities.lua" )
 	--debug_print_table( mm_material_info )
 

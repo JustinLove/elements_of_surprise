@@ -1,7 +1,7 @@
 - x handling molten/vapour
 - x material damage
 - x gold collection? - nope
-- passing info to potion
+- x passing info to potion
 - ai danger
 - pixel scenes? 
 - holy mountain portals
