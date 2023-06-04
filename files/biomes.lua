@@ -19,7 +19,7 @@ local function build_colors(info, real, fake)
 			input_color=opaque,
 			output_colors=table.concat(output, ',')
 		})
-		print(tostring(colors[#colors]))
+		--print(tostring(colors[#colors]))
 	end
 	return colors
 end

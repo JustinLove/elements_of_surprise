@@ -3,7 +3,8 @@ local nxml = dofile_once("mods/material_mimics/files/lib/nxml.lua")
 function mm_create_materials(materials)
 	local info = {
 		wang_colors = {},
-		names = {},
+		name_to_mimic = {},
+		name_to_effect = {},
 	}
 	local content = ModTextFileGetContent("data/materials.xml")
 	local xml = nxml.parse(content)
@@ -76,7 +77,8 @@ function mm_create_materials(materials)
 				end
 				--print(tostring(el))
 				info.wang_colors[el_looks_like.attr.wang_color] = el.attr.wang_color
-				info.names[el_looks_like.attr.name] = el.attr.name
+				info.name_to_mimic[looks_like] = el.attr.name
+				info.name_to_effect[acts_like] = el.attr.name
 				new_elements[#new_elements+1] = el
 				wang_color = wang_color + 1
 			end
