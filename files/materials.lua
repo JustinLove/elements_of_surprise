@@ -96,7 +96,9 @@ function mm_potion_materials()
 	local function table_names(mats)
 		local length = #mats
 		for i = 1,length do
-			materials[#materials+1] = mats[i].material
+			if not string.find(mats[i].material or '', 'gold', nil,true) then
+				materials[#materials+1] = mats[i].material
+			end
 		end
 	end
 

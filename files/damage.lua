@@ -53,8 +53,8 @@ function mm_change_materials_that_damage(entity_id, name_to_effect)
 				old_materials_that_damage[name_to_effect[material]] = damage
 			end
 		end
-		dofile_once( "data/scripts/lib/utilities.lua" )
-		debug_print_table( old_materials_that_damage )
+		--dofile_once( "data/scripts/lib/utilities.lua" )
+		--debug_print_table( old_materials_that_damage )
 		local materials_that_damage = {}
 		local materials_how_much_damage = {}
 		for material, damage in pairs(old_materials_that_damage) do

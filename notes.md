@@ -1,10 +1,11 @@
 - x handling molten/vapour
 - x material damage
+- x gold collection? - nope
+- passing info to potion
 - ai danger
 - pixel scenes? 
 - holy mountain portals
 - Hydroxide, anything else that changes potions
 - extending or scanning biomes
-- gold collection?
 - fire effects? - probably not, maybe look at lava
 - sacks?
