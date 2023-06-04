@@ -1,6 +1,8 @@
+- world materials??
+  RandomMaterials/RandomColor
 - handling molten/vapour
 - fire effects?
 - material damage
 - gold collection?
-- inheriting from orb poweder crashes
 - sacks?
+- Hydroxide, anything else that changes potions
