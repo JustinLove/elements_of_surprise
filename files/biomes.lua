@@ -52,7 +52,10 @@ function mm_edit_biomes(info, natural_material_chance)
 	if natural_material_chance == 'none' then
 		return
 	elseif natural_material_chance == 'rarely' then
-		real = 4
+		real = 9
+		fake = 1
+	elseif natural_material_chance == 'sometimes' then
+		real = 3
 		fake = 1
 	elseif natural_material_chance == 'even' then
 		real = 1

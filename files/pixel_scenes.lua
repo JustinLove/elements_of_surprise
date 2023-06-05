@@ -9,6 +9,8 @@ local function mm_mimicify(spawns)
 		chance = 100
 	elseif natural_material_chance == 'even' then
 		chance = 50
+	elseif natural_material_chance == 'sometimes' then
+		chance = 25
 	else
 		chance = 10
 	end

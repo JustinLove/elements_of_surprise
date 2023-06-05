@@ -41,6 +41,7 @@ mod_settings =
 		values = {
 			{"none","None"},
 			{"rarely","Rarely"},
+			{"sometimes","Sometimes"},
 			{"even","Even"},
 			{"always","Always"},
 		},

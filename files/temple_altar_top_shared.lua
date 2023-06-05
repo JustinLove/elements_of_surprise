@@ -14,6 +14,8 @@ function spawn_altar_top(x, y, is_solid)
 		return mm_spawn_mimic_altar_top(x, y, is_solid)
 	elseif natural_material_chance == 'even' then
 		chance = 50
+	elseif natural_material_chance == 'sometimes' then
+		chance = 25
 	else
 		chance = 10
 	end
