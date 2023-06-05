@@ -11,8 +11,11 @@
   - grahams
   - creeps
 - x too much stuff failing using small static list - temple portals use hardcoded material names
+- x extending or scanning biomes
+  - alternate biomes: order dependent
 - creeps: edit remove_ground_mud
-- extending or scanning biomes
 - fire effects? - probably not, maybe look at lava
+- potion agressive
+- poiion starting
 - sacks?
 - specific pixel scenes? - add mapping table similar to biome mapping?
