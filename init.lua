@@ -43,6 +43,11 @@ function OnMagicNumbersAndWorldSeedInitialized()
 		mm_edit_biomes(mm_material_info, natural_material_chance)
 	end
 
+
+	if ModIsEnabled('mo_creeps') then
+		mm_extend_component_materials(mm_material_info, "mods/mo_creeps/files/entities/misc/remove_ground_mud.xml", "CellEaterComponent", "materials")
+	end
+
 	ModLuaFileAppend( "data/scripts/items/potion.lua", "mods/material_mimics/files/potion.lua" )
 end
 

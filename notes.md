@@ -10,7 +10,7 @@
 - x other mods - parent depth issues?????
 - x too much stuff failing using small static list - temple portals use hardcoded material names
 - x extending or scanning biomes
-- creeps: edit remove_ground_mud
+- x creeps: edit remove_ground_mud
 - fire effects? - probably not, maybe look at lava
 - potion agressive
 - poiion starting

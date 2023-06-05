@@ -111,7 +111,7 @@ function mm_create_materials(materials)
 	for _,file in ipairs(files) do
 		if #(file.new_elements) > 0 then
 			file.xml:add_children(file.new_elements)
-			print(file.path)
+			--print(file.path)
 			ModTextFileSetContent(file.path, tostring(file.xml))
 		end
 	end
@@ -172,4 +172,23 @@ function mm_randomize_materials(looks_names, acts_names, materials)
 	end
 
 	return materials
+end
+
+function mm_extend_component_materials(info, path, component, attr)
+	local content = ModTextFileGetContent(path)
+	local xml = nxml.parse(content)
+	for element in xml:each_child(componenet) do
+		if element.attr[attr] then
+			local changed = string.gsub(element.attr[attr], '[^,]+', function(s)
+				if info.name_to_effect[s] then
+					return s..','..info.name_to_effect[s]
+				else
+					return s
+				end
+			end)
+			element.attr[attr] = changed
+			break
+		end
+	end
+	ModTextFileSetContent(path, tostring(xml))
 end
