@@ -88,8 +88,10 @@ function mm_create_materials(materials)
 			end
 		end
 	end
-	xml:add_children(new_elements)
-	ModTextFileSetContent("data/materials.xml", tostring(xml))
+
+	local appends = nxml.new_element('Materials', {})
+	appends:add_children(new_elements)
+	ModTextFileSetContent("mods/material_mimics/files/materials.xml", tostring(appends))
 	return info
 end
 

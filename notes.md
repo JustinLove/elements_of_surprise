@@ -5,6 +5,8 @@
 - x ai danger
 - x holy mountain portals
 - Hydroxide, anything else that changes potions
+  - x output to separate material append
+  - have list of xmls
 - extending or scanning biomes
 - fire effects? - probably not, maybe look at lava
 - sacks?

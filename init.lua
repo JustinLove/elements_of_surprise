@@ -49,3 +49,6 @@ end
 ModLuaFileAppend( "data/scripts/biomes/temple_altar_top_shared.lua", "mods/material_mimics/files/temple_altar_top_shared.lua" )
 
 ModLuaFileAppend( "data/scripts/biomes/coalmine.lua", "mods/material_mimics/files/pixel_scenes.lua" )
+
+-- not defined *yet*, but doesn't seem to work from inside the create materials function
+ModMaterialsFileAdd("mods/material_mimics/files/materials.xml")
