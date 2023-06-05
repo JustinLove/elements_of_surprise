@@ -23,6 +23,12 @@ local function extra_materials(mats, extras)
 	end
 end
 
+mm_tables = {
+	'materials_standard',
+	'materials_magic',
+	'potions',
+}
+
 local entity_id = GetUpdatedEntityID()
 if entity_id and entity_id ~= 0 then
 	local x,y = EntityGetTransform( entity_id )
@@ -30,12 +36,17 @@ if entity_id and entity_id ~= 0 then
 	local potion_mimic_chance = ModSettingGet("material_mimics.potion_mimic_chance") or 10
 	if Random(1, 100) <= potion_mimic_chance then
 		dofile('mods/material_mimics/files/mm_material_info.lua')
-		actual_table(materials_standard)
-		actual_table(materials_magic)
-		extra_materials(materials_magic, {
-			'actual_magic_liquid_hp_regeneration',
-			'purifying_powder',
-			'actual_magic_liquid_teleportation',
-		})
+		for _,mats in ipairs(mm_tables) do
+			if _G[mats] then
+				actual_table(_G[mats])
+			end
+		end
+		if _G['materials_magic'] then
+			extra_materials(materials_magic, {
+				'actual_magic_liquid_hp_regeneration',
+				'purifying_powder',
+				'actual_magic_liquid_teleportation',
+			})
+		end
 	end
 end
