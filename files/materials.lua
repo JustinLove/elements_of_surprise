@@ -68,6 +68,15 @@ function mm_create_materials(materials)
 					danger_water=el_looks_like.attr.danger_water or '0',
 					danger_poison=el_looks_like.attr.danger_poison or '0',
 				})
+				if el_looks_like.attr.on_fire == "1" then
+					el.attr.burnable="1"
+					el.attr.generates_smoke="0"
+					el.attr.generates_flames="0"
+					el.attr.on_fire="1"
+					el.attr.fire_hp="-1"
+					el.attr.requires_oxygen="0"
+					el.attr.temperature_of_fire="0"
+				end
 				local start,nd = string.find(el_acts_like.attr.tags or '', '[evaporable_custom],',nil,true)
 				if start then
 					el.attr.tags = string.gsub(el_acts_like.attr.tags, '%[evaporable_custom%],', '')

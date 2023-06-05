@@ -5,7 +5,7 @@ function OnPlayerSpawned( player_entity ) -- This runs when player entity has be
 		return
 	end
 
-	---[[
+	--[[
 	dofile('mods/material_mimics/files/test.lua')
 	mm_test_player_spawned(player_entity)
 	--]]
