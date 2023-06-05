@@ -3,8 +3,8 @@
 - x gold collection? - nope
 - x passing info to potion
 - x ai danger
+- x holy mountain portals
 - pixel scenes? 
-- holy mountain portals
 - Hydroxide, anything else that changes potions
 - extending or scanning biomes
 - fire effects? - probably not, maybe look at lava
