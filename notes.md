@@ -11,8 +11,8 @@
 - x too much stuff failing using small static list - temple portals use hardcoded material names
 - x extending or scanning biomes
 - x creeps: edit remove_ground_mud
+- x potion agressive
+- x potion starting
 - fire effects? - probably not, maybe look at lava
-- potion agressive
-- poiion starting
 - sacks?
 - specific pixel scenes? - add mapping table similar to biome mapping?

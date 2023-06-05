@@ -50,6 +50,7 @@ function OnMagicNumbersAndWorldSeedInitialized()
 
 	ModLuaFileAppend( "data/scripts/items/potion.lua", "mods/material_mimics/files/potion.lua" )
 	ModLuaFileAppend( "data/scripts/items/potion_aggressive.lua", "mods/material_mimics/files/potion.lua" )
+	ModLuaFileAppend( "data/scripts/items/potion_starting.lua", "mods/material_mimics/files/potion_starting.lua" )
 end
 
 ModLuaFileAppend( "data/scripts/biomes/temple_altar_top_shared.lua", "mods/material_mimics/files/temple_altar_top_shared.lua" )
