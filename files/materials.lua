@@ -26,16 +26,20 @@ function mm_create_materials(materials)
 	end
 	local wang_color = 0xff3131c0
 
-	for looks_like,list in pairs(materials) do
-		looks_like = string.lower(looks_like)
-		local el_looks_like
-		for _,file in ipairs(files) do
-			for element in file.xml:each_child() do
-				if (element.name == 'CellData' or element.name == 'CellDataChild') and string.lower(element.attr.name) == looks_like then
-					el_looks_like = element
-				end
+	local element_index = {}
+
+	for i,file in ipairs(files) do
+		for element in file.xml:each_child() do
+			if (element.name == 'CellData' or element.name == 'CellDataChild') then
+				element_index[string.lower(element.attr.name)] = element
+				element.file_index = i
 			end
 		end
+	end
+
+	for looks_like,list in pairs(materials) do
+		looks_like = string.lower(looks_like)
+		local el_looks_like = element_index[looks_like]
 
 		if not el_looks_like then
 			print('could not find ', looks_like)
@@ -43,15 +47,7 @@ function mm_create_materials(materials)
 
 		for i,acts_like in ipairs(list) do
 			acts_like = string.lower(acts_like)
-			local el_acts_like
-			for i,file in ipairs(files) do
-				for element in file.xml:each_child() do
-					if (element.name == 'CellData' or element.name == 'CellDataChild') and string.lower(element.attr.name) == acts_like then
-						el_acts_like = element
-						el_acts_like.index = i
-					end
-				end
-			end
+			local el_acts_like = element_index[acts_like]
 
 			if not_el_acts_like then
 				print('could not find ', acts_like)
@@ -105,7 +101,7 @@ function mm_create_materials(materials)
 				info.wang_colors[el_looks_like.attr.wang_color] = el.attr.wang_color
 				info.name_to_mimic[looks_like] = el.attr.name
 				info.name_to_effect[acts_like] = el.attr.name
-				local new_elements = files[el_acts_like.index].new_elements
+				local new_elements = files[el_acts_like.file_index].new_elements
 				new_elements[#new_elements+1] = el
 				wang_color = wang_color + 1
 			end
