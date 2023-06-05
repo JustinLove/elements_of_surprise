@@ -1,7 +1,7 @@
 local function actual_table(mats)
 	local length = #mats
 	for i = 1,length do
-		local mimic = mm_material_info.name_to_mimic[mats[i].material]
+		local mimic = mm_material_info.name_to_mimic[string.lower(mats[i].material)]
 		if mimic then
 			mats[i] = {
 				material = mimic,

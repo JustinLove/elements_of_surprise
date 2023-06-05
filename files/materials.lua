@@ -27,10 +27,11 @@ function mm_create_materials(materials)
 	local wang_color = 0xff3131c0
 
 	for looks_like,list in pairs(materials) do
+		looks_like = string.lower(looks_like)
 		local el_looks_like
 		for _,file in ipairs(files) do
 			for element in file.xml:each_child() do
-				if element.attr.name == looks_like then
+				if (element.name == 'CellData' or element.name == 'CellDataChild') and string.lower(element.attr.name) == looks_like then
 					el_looks_like = element
 				end
 			end
@@ -41,10 +42,11 @@ function mm_create_materials(materials)
 		end
 
 		for i,acts_like in ipairs(list) do
+			acts_like = string.lower(acts_like)
 			local el_acts_like
 			for i,file in ipairs(files) do
 				for element in file.xml:each_child() do
-					if element.attr.name == acts_like then
+					if (element.name == 'CellData' or element.name == 'CellDataChild') and string.lower(element.attr.name) == acts_like then
 						el_acts_like = element
 						el_acts_like.index = i
 					end
@@ -58,7 +60,7 @@ function mm_create_materials(materials)
 			if el_acts_like and el_looks_like then
 				local new_wang_color = string.format("%08x", wang_color)
 				local el = nxml.new_element( 'CellDataChild', {
-					_parent=acts_like,
+					_parent=el_acts_like.attr.name, -- using element in case CAPS_NAME
 					_inherit_reactions="1",
 					name='actual_'..looks_like,
 					ui_name=el_looks_like.attr.ui_name,

@@ -16,6 +16,7 @@ local function mm_mimicify(spawns)
 		if scene.color_material and Random(1,100) <= chance then
 			for _,list in pairs(scene.color_material) do
 				for i,mat in ipairs(list) do
+					mat = string.lower(mat)
 					if mm_material_info.name_to_mimic[mat] then
 						list[i] = mm_material_info.name_to_mimic[mat]
 					end
