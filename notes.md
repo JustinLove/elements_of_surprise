@@ -10,8 +10,8 @@
 - x other mods - parent depth issues?????
   - grahams
   - creeps
+- x too much stuff failing using small static list - temple portals use hardcoded material names
 - creeps: edit remove_ground_mud
-- too much stuff failing using small static list
 - extending or scanning biomes
 - fire effects? - probably not, maybe look at lava
 - sacks?

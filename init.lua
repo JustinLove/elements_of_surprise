@@ -34,8 +34,8 @@ function OnMagicNumbersAndWorldSeedInitialized()
 	dofile_once('mods/material_mimics/files/codegen.lua')
 	text = 'mm_material_info='..mm_table_to_string(mm_material_info)
 	ModTextFileSetContent("mods/material_mimics/files/mm_material_info.lua", text)
-	--dofile_once( "data/scripts/lib/utilities.lua" )
-	--debug_print_table( mm_material_info )
+	dofile_once( "data/scripts/lib/utilities.lua" )
+	debug_print_table( mm_material_info )
 
 	local natural_material_chance = ModSettingGet('material_mimics.natural_material_chance')
 	if natural ~= 'none' then
