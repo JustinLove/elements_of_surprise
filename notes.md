@@ -7,9 +7,11 @@
 - Hydroxide, anything else that changes potions
   - x output to separate material append
   - x have list of xmls
-- other mods - parent depth issues?????
+- x other mods - parent depth issues?????
   - grahams
   - creeps
+- creeps: edit remove_ground_mud
+- too much stuff failing using small static list
 - extending or scanning biomes
 - fire effects? - probably not, maybe look at lava
 - sacks?

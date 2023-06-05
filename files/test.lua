@@ -1,6 +1,6 @@
 function mm_test_player_spawned(player_entity)
 	local x,y = EntityGetTransform(player_entity)
-	--mm_container('actual_'..'blood_cold', x, y )
+	mm_container('actual_'..'gunpowder_unstable', x, y )
 	--mm_container('actual_'..'magic_liquid_hp_regeneration', x+1, y )
 	--mm_container('actual_'..'gold', x+2, y )
 	--mm_container('gold_radioactive', x+3, y )
