@@ -6,16 +6,27 @@ function mm_create_materials(materials)
 		name_to_mimic = {},
 		name_to_effect = {},
 	}
-	local content = ModTextFileGetContent("data/materials.xml")
-	local xml = nxml.parse(content)
+	local xmls = {}
+	xmls[#xmls+1] = nxml.parse(ModTextFileGetContent("data/materials.xml"))
+	if ModIsEnabled('Hydroxide') then
+		xmls[#xmls+1] = nxml.parse(ModTextFileGetContent("mods/Hydroxide/files/materials.xml"))
+	end
+	--[[if ModIsEnabled('grahamsperks') then
+		xmls[#xmls+1] = nxml.parse(ModTextFileGetContent("mods/grahamsperks/files/materials/materials.xml"))
+	end]]
+	--[[if ModIsEnabled('mo_creeps') then
+		xmls[#xmls+1] = nxml.parse(ModTextFileGetContent("mods/mo_creeps/files/scripts/materials/custom_materials.xml"))
+	end]]
 	local new_elements = {}
 	local wang_color = 0xff3131c0
 
 	for looks_like,list in pairs(materials) do
 		local el_looks_like
-		for element in xml:each_child() do
-			if element.attr.name == looks_like then
-				el_looks_like = element
+		for _,xml in ipairs(xmls) do
+			for element in xml:each_child() do
+				if element.attr.name == looks_like then
+					el_looks_like = element
+				end
 			end
 		end
 
@@ -25,9 +36,11 @@ function mm_create_materials(materials)
 
 		for i,acts_like in ipairs(list) do
 			local el_acts_like
-			for element in xml:each_child() do
-				if element.attr.name == acts_like then
-					el_acts_like = element
+			for _,xml in ipairs(xmls) do
+				for element in xml:each_child() do
+					if element.attr.name == acts_like then
+						el_acts_like = element
+					end
 				end
 			end
 
@@ -91,6 +104,7 @@ function mm_create_materials(materials)
 
 	local appends = nxml.new_element('Materials', {})
 	appends:add_children(new_elements)
+	--print(tostring(appends))
 	ModTextFileSetContent("mods/material_mimics/files/materials.xml", tostring(appends))
 	return info
 end

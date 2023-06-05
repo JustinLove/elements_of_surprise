@@ -6,7 +6,10 @@
 - x holy mountain portals
 - Hydroxide, anything else that changes potions
   - x output to separate material append
-  - have list of xmls
+  - x have list of xmls
+- other mods - parent depth issues?????
+  - grahams
+  - creeps
 - extending or scanning biomes
 - fire effects? - probably not, maybe look at lava
 - sacks?
