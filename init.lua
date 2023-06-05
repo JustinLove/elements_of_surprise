@@ -5,7 +5,7 @@ function OnPlayerSpawned( player_entity ) -- This runs when player entity has be
 		return
 	end
 
-	--[[
+	---[[
 	dofile('mods/material_mimics/files/test.lua')
 	mm_test_player_spawned(player_entity)
 	--]]
@@ -56,3 +56,6 @@ end
 ModLuaFileAppend( "data/scripts/biomes/temple_altar_top_shared.lua", "mods/material_mimics/files/temple_altar_top_shared.lua" )
 
 ModLuaFileAppend( "data/scripts/biomes/coalmine.lua", "mods/material_mimics/files/pixel_scenes.lua" )
+
+-- special cases, most materials are added dynamically
+ModMaterialsFileAdd( "mods/material_mimics/files/materials.xml" )

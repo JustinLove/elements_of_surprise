@@ -14,5 +14,7 @@
 - x potion agressive
 - x potion starting
 - fire effects? - probably not, maybe look at lava
+  - x fire that doesn't look like fire
+  - something else looks like fire
 - sacks?
 - specific pixel scenes? - add mapping table similar to biome mapping?

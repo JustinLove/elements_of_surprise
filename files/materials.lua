@@ -15,6 +15,7 @@ function mm_create_materials(materials)
 		}
 	end
 	add_xml("data/materials.xml")
+	add_xml( "mods/material_mimics/files/materials.xml" )
 	if ModIsEnabled('Hydroxide') then
 		add_xml("mods/Hydroxide/files/materials.xml")
 	end
@@ -126,7 +127,9 @@ function mm_potion_materials()
 	local function table_names(mats)
 		local length = #mats
 		for i = 1,length do
-			if not string.find(mats[i].material or '', 'gold', nil,true) then
+			if mats[i].material == 'liquid_fire' then
+				materials[#materials+1] = 'fake_liquid_fire'
+			elseif not string.find(mats[i].material or '', 'gold', nil,true) then
 				materials[#materials+1] = mats[i].material
 			end
 		end

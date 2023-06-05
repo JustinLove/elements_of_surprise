@@ -1,15 +1,17 @@
 function mm_test_player_spawned(player_entity)
 	local x,y = EntityGetTransform(player_entity)
 	--mm_container('actual_'..'gunpowder_unstable', x, y )
-	--mm_container('actual_'..'magic_liquid_hp_regeneration', x+1, y )
+	mm_container('actual_'..'water', x+1, y )
 	--mm_container('actual_'..'gold', x+2, y )
 	--mm_container('gold_radioactive', x+3, y )
+	--mm_container('fake_liquid_fire', x+2, y )
+	--mm_container('liquid_fire', x+3, y )
 	--EntityLoad( "data/entities/items/pickup/potion.xml", x, y )
 	--EntityLoad( "data/entities/items/pickup/potion.xml", x+1, y )
 	--EntityLoad( "data/entities/items/pickup/potion.xml", x+2, y )
-	EntityLoad( "data/entities/items/pickup/potion_aggressive.xml", x, y )
-	EntityLoad( "data/entities/items/pickup/potion_aggressive.xml", x+1, y )
-	EntityLoad( "data/entities/items/pickup/potion_aggressive.xml", x+2, y )
+	--EntityLoad( "data/entities/items/pickup/potion_aggressive.xml", x, y )
+	--EntityLoad( "data/entities/items/pickup/potion_aggressive.xml", x+1, y )
+	--EntityLoad( "data/entities/items/pickup/potion_aggressive.xml", x+2, y )
 end
 
 -- from cheatgui

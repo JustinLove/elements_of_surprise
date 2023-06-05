@@ -1,0 +1,62 @@
+<Materials>
+  <CellData
+    name="fake_liquid_fire"
+    ui_name="$mat_liquid_fire"
+    tags="[liquid],[impure],[hot],[fire_strong],[liquid_common]"
+    burnable="0"
+    density="1"
+    cell_type="liquid"
+    gfx_glow="200"
+    wang_color="af3B3B3F"
+    generates_smoke="0"
+    liquid_gravity="0.2"
+    liquid_sand="0"
+    liquid_stains="0"
+    liquid_viscosity="9"
+    liquid_sticks_to_ceiling="90"
+    liquid_flow_speed="0.3"
+    on_fire="0"
+    always_ignites_damagemodel="1"
+    danger_fire="1"
+    requires_oxygen="0"
+    temperature_of_fire="90"
+    electrical_conductivity="0"
+    status_effects="ON_FIRE"
+    liquid_sprite_stains_check_offset="1"
+    liquid_sprite_stains_status_threshold="0.2" 
+    show_in_creative_mode="1"
+    >
+    <Graphics
+      color="aff08400"
+      >
+    </Graphics>
+    <StatusEffects>
+      <Ingestion>
+        <StatusEffect type="INGESTION_ON_FIRE" amount="0.1" />
+      </Ingestion>
+    </StatusEffects>
+  </CellData>
+
+  <Reaction probability="2"
+    input_cell1="[water]" 			input_cell2="fake_liquid_fire"
+    output_cell1="fire" 			output_cell2="fake_liquid_fire"
+    >
+  </Reaction>
+
+  <Reaction probability="8"
+    input_cell1="fake_liquid_fire" 		input_cell2="[burnable]"
+    output_cell1="fake_liquid_fire" 		output_cell2="fire"  >
+  </Reaction>
+
+  <Reaction probability="80"
+    input_cell1="fake_liquid_fire" 		input_cell2="[burnable_fast]"
+    output_cell1="fake_liquid_fire" 		output_cell2="fire"  >
+  </Reaction>
+
+  <Reaction probability="10"
+    input_cell1="fake_liquid_fire" 		input_cell2="air"
+    output_cell1="fake_liquid_fire" 		output_cell2="smoke"
+    direction="top"
+    >
+  </Reaction>
+</Materials>
