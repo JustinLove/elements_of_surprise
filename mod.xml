@@ -1,6 +1,6 @@
 <Mod
-	name="Mimic Materials"
-	description="Potions may not be what they appear."
+	name="Material Mimics"
+	description="Potions and pools may not be what they appear."
 	request_no_api_restrictions="0" 
 > 
 </Mod>
