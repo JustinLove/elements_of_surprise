@@ -1,17 +1,17 @@
-dofile('mods/material_mimics/files/mm_material_info.lua')
+dofile('mods/elements_of_surprise/files/eos_material_info.lua')
 
 local function actual(mat)
-	return mm_material_info.name_to_mimic[string.lower(mat)] or mat
+	return eos_material_info.name_to_mimic[string.lower(mat)] or mat
 end
 
-mm_base_spawn_altar_top = spawn_altar_top
+eos_base_spawn_altar_top = spawn_altar_top
 function spawn_altar_top(x, y, is_solid)
-	local natural_material_chance = ModSettingGet('material_mimics.natural_material_chance')
+	local natural_material_chance = ModSettingGet('elements_of_surprise.natural_material_chance')
 	local chance = 10
 	if natural_material_chance == 'none' then
-		return mm_base_spawn_altar_top(x, y, is_solid)
+		return eos_base_spawn_altar_top(x, y, is_solid)
 	elseif natural_material_chance == 'always' then
-		return mm_spawn_mimic_altar_top(x, y, is_solid)
+		return eos_spawn_mimic_altar_top(x, y, is_solid)
 	elseif natural_material_chance == 'even' then
 		chance = 50
 	elseif natural_material_chance == 'sometimes' then
@@ -21,13 +21,13 @@ function spawn_altar_top(x, y, is_solid)
 	end
 	SetRandomSeed( x + 9391, y + 16607 )
 	if Random(1, 100) <= chance then
-		return mm_spawn_mimic_altar_top(x, y, is_solid)
+		return eos_spawn_mimic_altar_top(x, y, is_solid)
 	else
-		return mm_base_spawn_altar_top(x, y, is_solid)
+		return eos_base_spawn_altar_top(x, y, is_solid)
 	end
 end
 
-function mm_spawn_mimic_altar_top(x, y, is_solid)
+function eos_spawn_mimic_altar_top(x, y, is_solid)
 	SetRandomSeed( x, y )
 	local randomtop = Random( 1, 50 )
 	local file_visual = "data/biome_impl/temple/altar_top_visual.png"

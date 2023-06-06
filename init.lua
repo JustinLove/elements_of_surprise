@@ -1,61 +1,61 @@
-mm_material_info = {}
+eos_material_info = {}
 
 function OnPlayerSpawned( player_entity ) -- This runs when player entity has been created
-	if GameHasFlagRun('MM_FIRST_RUN') then
+	if GameHasFlagRun('EOS_FIRST_RUN') then
 		return
 	end
 
 	--[[
-	dofile('mods/material_mimics/files/test.lua')
-	mm_test_player_spawned(player_entity)
+	dofile('mods/elements_of_surprise/files/test.lua')
+	eos_test_player_spawned(player_entity)
 	--]]
 
-	dofile('mods/material_mimics/files/damage.lua')
-	mm_change_materials_that_damage(player_entity, mm_material_info.name_to_effect)
+	dofile('mods/elements_of_surprise/files/damage.lua')
+	eos_change_materials_that_damage(player_entity, eos_material_info.name_to_effect)
 
-	GameAddFlagRun('MM_FIRST_RUN')
+	GameAddFlagRun('EOS_FIRST_RUN')
 end
 
 function OnMagicNumbersAndWorldSeedInitialized()
-	dofile_once('mods/material_mimics/files/materials.lua')
-	if ModSettingGet('material_mimics.randomized_materials') then
-		local potion = mm_potion_materials()
+	dofile_once('mods/elements_of_surprise/files/materials.lua')
+	if ModSettingGet('elements_of_surprise.randomized_materials') then
+		local potion = eos_potion_materials()
 		local mapping = {}
 		SetRandomSeed( 331, 7283 )
-		mm_randomize_materials(potion, potion, mapping)
+		eos_randomize_materials(potion, potion, mapping)
 		--dofile_once( "data/scripts/lib/utilities.lua" )
 		--debug_print_table( mapping )
-		mm_material_info = mm_create_materials(mapping)
+		eos_material_info = eos_create_materials(mapping)
 	else
-		dofile_once('mods/material_mimics/files/mimic_materials.lua')
-		mm_material_info = mm_create_materials(mm_mimic_materials)
+		dofile_once('mods/elements_of_surprise/files/mimic_materials.lua')
+		eos_material_info = eos_create_materials(eos_mimic_materials)
 	end
 
-	dofile_once('mods/material_mimics/files/codegen.lua')
-	text = 'mm_material_info='..mm_table_to_string(mm_material_info)
-	ModTextFileSetContent("mods/material_mimics/files/mm_material_info.lua", text)
+	dofile_once('mods/elements_of_surprise/files/codegen.lua')
+	text = 'eos_material_info='..eos_table_to_string(eos_material_info)
+	ModTextFileSetContent("mods/elements_of_surprise/files/eos_material_info.lua", text)
 	--dofile_once( "data/scripts/lib/utilities.lua" )
-	--debug_print_table( mm_material_info )
+	--debug_print_table( eos_material_info )
 
-	local natural_material_chance = ModSettingGet('material_mimics.natural_material_chance')
+	local natural_material_chance = ModSettingGet('elements_of_surprise.natural_material_chance')
 	if natural ~= 'none' then
-		dofile_once('mods/material_mimics/files/biomes.lua')
-		mm_edit_biomes(mm_material_info, natural_material_chance)
+		dofile_once('mods/elements_of_surprise/files/biomes.lua')
+		eos_edit_biomes(eos_material_info, natural_material_chance)
 	end
 
 
 	if ModIsEnabled('mo_creeps') then
-		mm_extend_component_materials(mm_material_info, "mods/mo_creeps/files/entities/misc/remove_ground_mud.xml", "CellEaterComponent", "materials")
+		eos_extend_component_materials(eos_material_info, "mods/mo_creeps/files/entities/misc/remove_ground_mud.xml", "CellEaterComponent", "materials")
 	end
 
-	ModLuaFileAppend( "data/scripts/items/potion.lua", "mods/material_mimics/files/potion.lua" )
-	ModLuaFileAppend( "data/scripts/items/potion_aggressive.lua", "mods/material_mimics/files/potion.lua" )
-	ModLuaFileAppend( "data/scripts/items/potion_starting.lua", "mods/material_mimics/files/potion_starting.lua" )
+	ModLuaFileAppend( "data/scripts/items/potion.lua", "mods/elements_of_surprise/files/potion.lua" )
+	ModLuaFileAppend( "data/scripts/items/potion_aggressive.lua", "mods/elements_of_surprise/files/potion.lua" )
+	ModLuaFileAppend( "data/scripts/items/potion_starting.lua", "mods/elements_of_surprise/files/potion_starting.lua" )
 end
 
-ModLuaFileAppend( "data/scripts/biomes/temple_altar_top_shared.lua", "mods/material_mimics/files/temple_altar_top_shared.lua" )
+ModLuaFileAppend( "data/scripts/biomes/temple_altar_top_shared.lua", "mods/elements_of_surprise/files/temple_altar_top_shared.lua" )
 
-ModLuaFileAppend( "data/scripts/biomes/coalmine.lua", "mods/material_mimics/files/pixel_scenes.lua" )
+ModLuaFileAppend( "data/scripts/biomes/coalmine.lua", "mods/elements_of_surprise/files/pixel_scenes.lua" )
 
 -- special cases, most materials are added dynamically
-ModMaterialsFileAdd( "mods/material_mimics/files/materials.xml" )
+ModMaterialsFileAdd( "mods/elements_of_surprise/files/materials.xml" )

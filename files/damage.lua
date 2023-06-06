@@ -10,7 +10,7 @@ local function stringsplit(inputstr, sep)
 end
 
 -- Returns a key-value table, where they keys are the material name and the values the damage.
-function mm_get_materials_that_damage(entity_id)
+function eos_get_materials_that_damage(entity_id)
 	local out = {}
 	local damage_model_component = EntityGetFirstComponentIncludingDisabled(entity_id, "DamageModelComponent")
 	if damage_model_component then
@@ -25,7 +25,7 @@ function mm_get_materials_that_damage(entity_id)
 	end
 end
 
-function mm_change_materials_that_damage(entity_id, name_to_effect)
+function eos_change_materials_that_damage(entity_id, name_to_effect)
 	-- At the time of writing (1st of September 2020) changes to DamageModelComponent:materials_that_damage
 	-- do not take effect. One of the ways to work around that is to remove and re-add the component with
 	-- the changes applied and the same old values for everything else
@@ -47,7 +47,7 @@ function mm_change_materials_that_damage(entity_id, name_to_effect)
 		-- Build comma separated string
 		old_values.materials_that_damage = ""
 		old_values.materials_how_much_damage = ""
-		local old_materials_that_damage = mm_get_materials_that_damage(entity_id)
+		local old_materials_that_damage = eos_get_materials_that_damage(entity_id)
 		for material, damage in pairs(old_materials_that_damage) do
 			if name_to_effect[material] then
 				old_materials_that_damage[name_to_effect[material]] = damage

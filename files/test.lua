@@ -1,12 +1,12 @@
-function mm_test_player_spawned(player_entity)
+function eos_test_player_spawned(player_entity)
 	local x,y = EntityGetTransform(player_entity)
-	--mm_container('actual_'..'gunpowder_unstable', x, y )
-	mm_container('actual_'..'water', x+1, y )
-	mm_container('actual_'..'liquid_fire', x+1, y )
-	--mm_container('actual_'..'gold', x+2, y )
-	--mm_container('gold_radioactive', x+3, y )
-	--mm_container('fake_liquid_fire', x+1, y )
-	--mm_container('liquid_fire', x+3, y )
+	--eos_container('actual_'..'gunpowder_unstable', x, y )
+	eos_container('actual_'..'water', x+1, y )
+	eos_container('actual_'..'liquid_fire', x+1, y )
+	--eos_container('actual_'..'gold', x+2, y )
+	--eos_container('gold_radioactive', x+3, y )
+	--eos_container('fake_liquid_fire', x+1, y )
+	--eos_container('liquid_fire', x+3, y )
 	--EntityLoad( "data/entities/items/pickup/potion.xml", x, y )
 	--EntityLoad( "data/entities/items/pickup/potion.xml", x+1, y )
 	--EntityLoad( "data/entities/items/pickup/potion.xml", x+2, y )
@@ -25,33 +25,33 @@ local function empty_container_of_materials(idx)
 	end
 end
 
-function mm_container( material_name, x, y )
+function eos_container( material_name, x, y )
 	local entity
 	if material_name == nil or material_name == "" then
 		return
-	elseif mm_get_material_type( material_name) == "powder" then
-		entity = mm_powder_empty( x, y )
+	elseif eos_get_material_type( material_name) == "powder" then
+		entity = eos_powder_empty( x, y )
 		AddMaterialInventoryMaterial(entity, material_name, 1000)
 		return entity
 	else
-		entity = mm_potion_empty( x, y )
+		entity = eos_potion_empty( x, y )
 		AddMaterialInventoryMaterial(entity, material_name, 1000)
 		return entity
 	end
 end
 
-function mm_powder_empty( x, y )
+function eos_powder_empty( x, y )
 	local entity = EntityLoad("data/entities/items/pickup/powder_stash.xml", x, y)
 	empty_container_of_materials( entity )
 	return entity
 end
 
-function mm_potion_empty( x, y )
+function eos_potion_empty( x, y )
 	local entity = EntityLoad( "data/entities/items/pickup/potion_empty.xml", x+1, y )
 	return entity
 end
 
-function mm_get_material_type( material_name )
+function eos_get_material_type( material_name )
 	local material_id = CellFactory_GetType( material_name )
 	local tags = CellFactory_GetTags( material_id )
 

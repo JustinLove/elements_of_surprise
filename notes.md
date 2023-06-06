@@ -16,5 +16,11 @@
 - x fire effects? - probably not, maybe look at lava
   - x fire that doesn't look like fire
   - x something else looks like fire
+- Elements of Surprise - Atomguy
+- document nxml
+- mention mod jam
+- remove/adjust glow
+- fire melts snow
+- all damage models?
 - sacks?
 - specific pixel scenes? - add mapping table similar to biome mapping?

@@ -1,10 +1,10 @@
-# Material Mimics
+# Elements of Surprise
 
 Materials may not be what they seem. Is that real Ambrosia, or will you become a sheep? Is that pool of water safe, or is it Accelratium... or Lava?
 
 ## Compatable mods:
 
-- Alternate Biomes (mod order depedent, have Mimics lower)
+- Alternate Biomes (mod order depedent, have Elements lower)
 - Chemical Curiosities
 - Graham's Things
 - More Creeps & Weirdos

@@ -1,6 +1,6 @@
-local nxml = dofile_once("mods/material_mimics/files/lib/nxml.lua")
+local nxml = dofile_once("mods/elements_of_surprise/files/lib/nxml.lua")
 
-function mm_create_materials(materials)
+function eos_create_materials(materials)
 	local info = {
 		wang_colors = {},
 		name_to_mimic = {},
@@ -15,7 +15,7 @@ function mm_create_materials(materials)
 		}
 	end
 	add_xml("data/materials.xml")
-	add_xml( "mods/material_mimics/files/materials.xml" )
+	add_xml( "mods/elements_of_surprise/files/materials.xml" )
 	if ModIsEnabled('Hydroxide') then
 		add_xml("mods/Hydroxide/files/materials.xml")
 	end
@@ -129,7 +129,7 @@ function mm_create_materials(materials)
 	return info
 end
 
-function mm_potion_materials()
+function eos_potion_materials()
 	dofile("data/scripts/items/potion.lua")
 	local materials = {}
 
@@ -174,7 +174,7 @@ local function copy_array( from )
 	return new
 end
 
-function mm_randomize_materials(looks_names, acts_names, materials)
+function eos_randomize_materials(looks_names, acts_names, materials)
 	local acts_like_names = copy_array(acts_names)
 	shuffleTable(acts_like_names)
 	for i,name in ipairs(looks_names) do
@@ -186,7 +186,7 @@ function mm_randomize_materials(looks_names, acts_names, materials)
 	return materials
 end
 
-function mm_extend_component_materials(info, path, component, attr)
+function eos_extend_component_materials(info, path, component, attr)
 	local content = ModTextFileGetContent(path)
 	local xml = nxml.parse(content)
 	for element in xml:each_child(componenet) do

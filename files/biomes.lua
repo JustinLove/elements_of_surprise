@@ -1,4 +1,4 @@
-local nxml = dofile_once("mods/material_mimics/files/lib/nxml.lua")
+local nxml = dofile_once("mods/elements_of_surprise/files/lib/nxml.lua")
 
 local function build_colors(info, real, fake)
 	local colors = {}
@@ -24,7 +24,7 @@ local function build_colors(info, real, fake)
 	return colors
 end
 
-local function mm_edit_biome(biome, colors)
+local function eos_edit_biome(biome, colors)
 	local content = ModTextFileGetContent(biome)
 	local xml = nxml.parse(content)
 	local el_topo = xml:first_of('Topology')
@@ -46,7 +46,7 @@ local function mm_edit_biome(biome, colors)
 	ModTextFileSetContent(biome, tostring(xml))
 end
 
-function mm_edit_biomes(info, natural_material_chance)
+function eos_edit_biomes(info, natural_material_chance)
 	local real = 1
 	local fake = 1
 	if natural_material_chance == 'none' then
@@ -71,6 +71,6 @@ function mm_edit_biomes(info, natural_material_chance)
 	for biome in xml:each_child() do
 		--print(tostring(biome))
 		--print(biome.attr.biome_filename)
-		mm_edit_biome(biome.attr.biome_filename, colors)
+		eos_edit_biome(biome.attr.biome_filename, colors)
 	end
 end

@@ -1,4 +1,4 @@
-mm_mimic_materials = {
+eos_mimic_materials = {
 	lava = {'magic_liquid_berserk'},
 	water = {'fake_liquid_fire'},
 	blood = {'urine'},
