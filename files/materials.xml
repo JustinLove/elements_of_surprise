@@ -2,7 +2,7 @@
   <CellData
     name="fake_liquid_fire"
     ui_name="$mat_liquid_fire"
-    tags="[liquid],[impure],[hot],[fire_strong],[liquid_common]"
+    tags="[liquid],[impure],[hot],[fire],[fire_strong],[liquid_common]"
     burnable="0"
     density="1"
     cell_type="liquid"
@@ -60,3 +60,5 @@
     >
   </Reaction>
 </Materials>
+
+

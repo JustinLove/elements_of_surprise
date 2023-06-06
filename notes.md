@@ -20,7 +20,7 @@
 - x document nxml
 - x mention mod jam
 - x remove/adjust glow
-- fire melts snow
+- x fire melts snow
 - all damage models?
 - sacks?
 - specific pixel scenes? - add mapping table similar to biome mapping?
