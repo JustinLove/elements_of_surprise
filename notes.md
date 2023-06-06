@@ -16,9 +16,9 @@
 - x fire effects? - probably not, maybe look at lava
   - x fire that doesn't look like fire
   - x something else looks like fire
-- Elements of Surprise - Atomguy
-- document nxml
-- mention mod jam
+- x Elements of Surprise - Atomguy
+- x document nxml
+- x mention mod jam
 - remove/adjust glow
 - fire melts snow
 - all damage models?
