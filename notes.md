@@ -19,7 +19,7 @@
 - x Elements of Surprise - Atomguy
 - x document nxml
 - x mention mod jam
-- remove/adjust glow
+- x remove/adjust glow
 - fire melts snow
 - all damage models?
 - sacks?

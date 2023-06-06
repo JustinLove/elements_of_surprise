@@ -63,6 +63,7 @@ function eos_create_materials(materials)
 					ui_name=el_looks_like.attr.ui_name,
 					--ui_name='Actual '..looks_like,
 					wang_color=new_wang_color,
+					gfx_glow=el_looks_like.attr.gfx_glow or "0",
 					danger_radioactive=el_looks_like.attr.danger_radioactive or '0',
 					danger_fire=el_looks_like.attr.danger_fire or '0',
 					danger_water=el_looks_like.attr.danger_water or '0',
@@ -76,6 +77,12 @@ function eos_create_materials(materials)
 					el.attr.fire_hp="-1"
 					el.attr.requires_oxygen="0"
 					el.attr.temperature_of_fire="0"
+				end
+				if el_acts_like.attr.gfx_glow and el.attr.gfx_glow then
+					local ll = tonumber(el.attr.gfx_glow)
+					local al = tonumber(el_acts_like.attr.gfx_glow)
+					local glow = ll + math.floor((al-ll)*0.1)
+					el.attr.gfx_glow = tostring(glow)
 				end
 				local start,nd = string.find(el_acts_like.attr.tags or '', '[evaporable_custom],',nil,true)
 				if start then
