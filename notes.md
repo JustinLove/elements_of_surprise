@@ -21,6 +21,8 @@
 - x mention mod jam
 - x remove/adjust glow
 - x fire melts snow
+- x file with list of xmls to load?
+- material detector puzzles
 - all damage models?
 - sacks?
 - specific pixel scenes? - add mapping table similar to biome mapping?

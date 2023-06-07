@@ -14,16 +14,10 @@ function eos_create_materials(materials)
 			new_elements = {},
 		}
 	end
-	add_xml("data/materials.xml")
-	add_xml( "mods/elements_of_surprise/files/materials.xml" )
-	if ModIsEnabled('Hydroxide') then
-		add_xml("mods/Hydroxide/files/materials.xml")
-	end
-	if ModIsEnabled('grahamsperks') then
-		add_xml("mods/grahamsperks/files/materials/materials.xml")
-	end
-	if ModIsEnabled('mo_creeps') then
-		add_xml("mods/mo_creeps/files/scripts/materials/custom_materials.xml")
+	dofile("mods/elements_of_surprise/files/material_xml_list.lua")
+	for _,path in ipairs(eos_material_xml_list) do
+		print(path)
+		add_xml(path)
 	end
 	local wang_color = 0xff3131c0
 
