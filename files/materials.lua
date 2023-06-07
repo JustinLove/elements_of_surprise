@@ -16,7 +16,6 @@ function eos_create_materials(materials)
 	end
 	dofile("mods/elements_of_surprise/files/material_xml_list.lua")
 	for _,path in ipairs(eos_material_xml_list) do
-		print(path)
 		add_xml(path)
 	end
 	local wang_color = 0xff3131c0
@@ -148,13 +147,17 @@ function eos_potion_materials()
 	table_names(materials_standard)
 	table_names(materials_magic)
 
-	materials[#materials+1] = 'magic_liquid_hp_regeneration'
-	materials[#materials+1] = 'purifying_powder'
-	materials[#materials+1] = 'magic_liquid_teleportation'
-
 	return materials
 end
 
+function eos_gather_materials()
+	local potion = eos_potion_materials()
+	dofile('mods/elements_of_surprise/files/extra_materials.lua')
+	for _,name in ipairs(eos_extra_materials) do
+		potion[#potion+1] = name
+	end
+	return potion
+end
 
 function shuffleTable( t )
 	assert( t, "shuffleTable() expected a table, got nil" )

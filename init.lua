@@ -19,10 +19,10 @@ end
 function OnMagicNumbersAndWorldSeedInitialized()
 	dofile_once('mods/elements_of_surprise/files/materials.lua')
 	if ModSettingGet('elements_of_surprise.randomized_materials') then
-		local potion = eos_potion_materials()
+		local materials = eos_gather_materials()
 		local mapping = {}
 		SetRandomSeed( 331, 7283 )
-		eos_randomize_materials(potion, potion, mapping)
+		eos_randomize_materials(materials, materials, mapping)
 		--dofile_once( "data/scripts/lib/utilities.lua" )
 		--debug_print_table( mapping )
 		eos_material_info = eos_create_materials(mapping)
@@ -48,6 +48,7 @@ function OnMagicNumbersAndWorldSeedInitialized()
 		eos_extend_component_materials(eos_material_info, "mods/mo_creeps/files/entities/misc/remove_ground_mud.xml", "CellEaterComponent", "materials")
 	end
 
+	-- since we run potion to get material list, it's a bit safer to do that before adding stuff.
 	ModLuaFileAppend( "data/scripts/items/potion.lua", "mods/elements_of_surprise/files/potion.lua" )
 	ModLuaFileAppend( "data/scripts/items/potion_aggressive.lua", "mods/elements_of_surprise/files/potion.lua" )
 	ModLuaFileAppend( "data/scripts/items/potion_starting.lua", "mods/elements_of_surprise/files/potion_starting.lua" )

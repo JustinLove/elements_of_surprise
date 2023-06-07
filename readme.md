@@ -24,7 +24,7 @@ Other material mods will not be used. Other biome mods may be order dependent.
 
 Append to `mods/elements_of_surprise/files/material_xml_list.lua` if you have new material definitions.
 
-Random mode materials to shuffle primarily come from the tables in standard potions.
+Random mode materials to shuffle primarily come from the tables in standard potions. If you want something not in potions append to `mods/elements_of_surprise/files/extra_materials.lua`
 
 Mods wishing to know the mapping can
 
