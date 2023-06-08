@@ -83,11 +83,22 @@ eos_bleed_actual_oil =
 
 dofile('mods/elements_of_surprise/files/eos_material_info.lua')
 if _G['eos_material_info'] then
+	local slime = #perk_list
+	local oil = #perk_list
+	for i = 1,#perk_list do
+		if perk_list[i].id == 'BLEED_SLIME' then
+			slime = i
+		end
+		if perk_list[i].id == 'BLEED_OIL' then
+			oil = i
+		end
+	end
 	if eos_material_info.name_to_mimic['slime'] then
-		perk_list[#perk_list+1] = eos_bleed_actual_slime
+		table.insert(perk_list, slime+1, eos_bleed_actual_slime)
+		oil = oil + 1
 	end
 	if eos_material_info.name_to_mimic['oil'] then
-		perk_list[#perk_list+1] = eos_bleed_actual_oil
+		table.insert(perk_list, oil+1, eos_bleed_actual_oil)
 	end
 else
 	print('perk_list.lua was evaluated without Elements of Surprise perks')
