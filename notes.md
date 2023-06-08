@@ -23,10 +23,10 @@
 - x fire melts snow
 - x file with list of xmls to load?
 - x logging option
+- x spells
 - gold texture issue
 - material detector puzzles
 - materials in barrels
-- spells
 - all damage models?
 - sacks?
 - specific pixel scenes? - add mapping table similar to biome mapping?
