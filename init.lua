@@ -34,8 +34,11 @@ function OnMagicNumbersAndWorldSeedInitialized()
 	dofile_once('mods/elements_of_surprise/files/codegen.lua')
 	text = 'eos_material_info='..eos_table_to_string(eos_material_info)
 	ModTextFileSetContent("mods/elements_of_surprise/files/eos_material_info.lua", text)
-	--dofile_once( "data/scripts/lib/utilities.lua" )
-	--debug_print_table( eos_material_info )
+
+	if ModIsEnabled('EnableLogger') then
+		dofile_once( "data/scripts/lib/utilities.lua" )
+		debug_print_table( eos_material_info )
+	end
 
 	local natural_material_chance = ModSettingGet('elements_of_surprise.natural_material_chance')
 	if natural ~= 'none' then
