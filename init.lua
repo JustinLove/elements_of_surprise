@@ -59,6 +59,11 @@ end
 
 ModLuaFileAppend( "data/scripts/biomes/temple_altar_top_shared.lua", "mods/elements_of_surprise/files/temple_altar_top_shared.lua" )
 
+ModLuaFileAppend( "data/scripts/perks/perk_list.lua", "mods/elements_of_surprise/files/perk_list.lua" )
+
+dofile('mods/elements_of_surprise/files/translations.lua')
+eos_append_translations()
+
 ModLuaFileAppend( "data/scripts/biomes/coalmine.lua", "mods/elements_of_surprise/files/pixel_scenes.lua" )
 
 -- special cases, most materials are added dynamically
