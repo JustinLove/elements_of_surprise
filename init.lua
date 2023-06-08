@@ -55,12 +55,17 @@ function OnMagicNumbersAndWorldSeedInitialized()
 	ModLuaFileAppend( "data/scripts/items/potion.lua", "mods/elements_of_surprise/files/potion.lua" )
 	ModLuaFileAppend( "data/scripts/items/potion_aggressive.lua", "mods/elements_of_surprise/files/potion.lua" )
 	ModLuaFileAppend( "data/scripts/items/potion_starting.lua", "mods/elements_of_surprise/files/potion_starting.lua" )
-	ModLuaFileAppend( "data/scripts/gun/gun_actions.lua", "mods/elements_of_surprise/files/gun_actions.lua" )
 end
 
 ModLuaFileAppend( "data/scripts/biomes/temple_altar_top_shared.lua", "mods/elements_of_surprise/files/temple_altar_top_shared.lua" )
 
-ModLuaFileAppend( "data/scripts/perks/perk_list.lua", "mods/elements_of_surprise/files/perk_list.lua" )
+if ModSettingGet('elements_of_surprise.enable_perks') ~= false then
+	ModLuaFileAppend( "data/scripts/perks/perk_list.lua", "mods/elements_of_surprise/files/perk_list.lua" )
+end
+
+if ModSettingGet('elements_of_surprise.enable_spells') ~= false then
+	ModLuaFileAppend( "data/scripts/gun/gun_actions.lua", "mods/elements_of_surprise/files/gun_actions.lua" )
+end
 
 dofile('mods/elements_of_surprise/files/translations.lua')
 eos_append_translations()

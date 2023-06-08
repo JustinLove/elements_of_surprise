@@ -47,6 +47,20 @@ mod_settings =
 		},
 		scope = MOD_SETTING_SCOPE_NEW_GAME,
 	},
+	{
+		id = "enable_perks",
+		ui_name = "Enable Perks (applied on new game)",
+		ui_description = "Perks can bleed suspicous materials",
+		value_default = true,
+		scope = MOD_SETTING_SCOPE_NEW_GAME,
+	},
+	{
+		id = "enable_spells",
+		ui_name = "Enable Spells (applied on new game)",
+		ui_description = "New spells that create suspicous materials",
+		value_default = true,
+		scope = MOD_SETTING_SCOPE_NEW_GAME,
+	},
 }
 
 -- This function is called to ensure the correct setting values are visible to the game via ModSettingGet(). your mod's settings don't work if you don't have a function like this defined in settings.lua.
@@ -73,46 +87,4 @@ end
 -- This function is called to display the settings UI for this mod. Your mod's settings wont be visible in the mod settings menu if this function isn't defined correctly.
 function ModSettingsGui( gui, in_main_menu )
 	mod_settings_gui( mod_id, mod_settings, gui, in_main_menu )
-
-	--example usage:
-	--[[
-	local im_id = 124662 -- NOTE: ids should not be reused like we do below
-	GuiLayoutBeginLayer( gui )
-
-	GuiLayoutBeginHorizontal( gui, 10, 50 )
-    GuiImage( gui, im_id + 12312535, 0, 0, "data/particles/shine_07.xml", 1, 1, 1, 0, GUI_RECT_ANIMATION_PLAYBACK.PlayToEndAndPause )
-    GuiImage( gui, im_id + 123125351, 0, 0, "data/particles/shine_04.xml", 1, 1, 1, 0, GUI_RECT_ANIMATION_PLAYBACK.PlayToEndAndPause )
-    GuiLayoutEnd( gui )
-
-	GuiBeginAutoBox( gui )
-
-	GuiZSet( gui, 10 )
-	GuiZSetForNextWidget( gui, 11 )
-	GuiText( gui, 50, 50, "Gui*AutoBox*")
-	GuiImage( gui, im_id, 50, 60, "data/ui_gfx/game_over_menu/game_over.png", 1, 1, 0 )
-	GuiZSetForNextWidget( gui, 13 )
-	GuiImage( gui, im_id, 60, 150, "data/ui_gfx/game_over_menu/game_over.png", 1, 1, 0 )
-
-	GuiZSetForNextWidget( gui, 12 )
-	GuiEndAutoBoxNinePiece( gui )
-
-	GuiZSetForNextWidget( gui, 11 )
-	GuiImageNinePiece( gui, 12368912341, 10, 10, 80, 20 )
-	GuiText( gui, 15, 15, "GuiImageNinePiece")
-
-	GuiBeginScrollContainer( gui, 1233451, 500, 100, 100, 100 )
-	GuiLayoutBeginVertical( gui, 0, 0 )
-	GuiText( gui, 10, 0, "GuiScrollContainer")
-	GuiImage( gui, im_id, 10, 0, "data/ui_gfx/game_over_menu/game_over.png", 1, 1, 0 )
-	GuiImage( gui, im_id, 10, 0, "data/ui_gfx/game_over_menu/game_over.png", 1, 1, 0 )
-	GuiImage( gui, im_id, 10, 0, "data/ui_gfx/game_over_menu/game_over.png", 1, 1, 0 )
-	GuiImage( gui, im_id, 10, 0, "data/ui_gfx/game_over_menu/game_over.png", 1, 1, 0 )
-	GuiLayoutEnd( gui )
-	GuiEndScrollContainer( gui )
-
-	local c,rc,hov,x,y,w,h = GuiGetPreviousWidgetInfo( gui )
-	print( tostring(c) .. " " .. tostring(rc) .." " .. tostring(hov) .." " .. tostring(x) .." " .. tostring(y) .." " .. tostring(w) .." ".. tostring(h) )
-
-	GuiLayoutEndLayer( gui )
-	]]--
 end
