@@ -127,6 +127,11 @@ function eos_create_materials(materials)
 		files[1].new_elements = {}
 	end
 
+	-- otherwise, define materials in their mod file.
+	-- It seems like child materials need to be defined after
+	-- their parents, and we can't run after a mod that
+	-- does a material append before us (material append acts as a stack)
+
 	for _,file in ipairs(files) do
 		if #(file.new_elements) > 0 then
 			file.xml:add_children(file.new_elements)
