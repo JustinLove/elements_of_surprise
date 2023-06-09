@@ -25,6 +25,8 @@
 - x logging option
 - x spells
 - x gold texture issue
+- xx vampire perk? - hardcoded to blood
+- infinite light? - maybe just dynamite?
 - material detector puzzles
 - materials in barrels
 - all damage models?
