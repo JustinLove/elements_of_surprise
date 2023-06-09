@@ -19,9 +19,15 @@ mod_settings =
 	{
 		id = "randomized_materials",
 		ui_name = "Randomized Materials (applied on new game)",
-		ui_description = "Mimic materials have random effects each game, instead of a single designed set.",
+		ui_description = "Mimic materials have random effects each game,\n instead of a single designed set.",
 		value_default = false,
 		scope = MOD_SETTING_SCOPE_NEW_GAME,
+	},
+	{
+		category_id = "restart_caution",
+		ui_name = "CAUTION: If using randomized materials with other mods,\na restart is recommended when starting a new game.",
+		ui_description = "If a mod has props made of custom materials, they can be corrupted\nwhen starting a new game without restarting Noita",
+		settings = {}
 	},
 	{
 		id = "potion_mimic_chance",

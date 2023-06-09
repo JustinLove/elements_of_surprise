@@ -8,6 +8,7 @@ function OnPlayerSpawned( player_entity ) -- This runs when player entity has be
 	--[[
 	dofile('mods/elements_of_surprise/files/test.lua')
 	eos_test_player_spawned(player_entity)
+	--eos_list_materials()
 	--]]
 
 	dofile('mods/elements_of_surprise/files/damage.lua')
@@ -18,27 +19,26 @@ end
 
 function OnMagicNumbersAndWorldSeedInitialized()
 	dofile_once('mods/elements_of_surprise/files/materials.lua')
+	dofile_once('mods/elements_of_surprise/files/codegen.lua')
 	if ModSettingGet('elements_of_surprise.randomized_materials') then
 		local materials = eos_gather_materials()
 		local mapping = {}
 		SetRandomSeed( 331, 7283 )
 		eos_randomize_materials(materials, materials, mapping)
-		--dofile_once( "data/scripts/lib/utilities.lua" )
-		--debug_print_table( mapping )
+
+		if ModIsEnabled('EnableLogger') then
+			local text = 'eos_mimic_materials='..eos_table_to_string_pretty(mapping)
+			print(text)
+		end
+
 		eos_material_info = eos_create_materials(mapping)
 	else
 		dofile_once('mods/elements_of_surprise/files/mimic_materials.lua')
 		eos_material_info = eos_create_materials(eos_mimic_materials)
 	end
 
-	dofile_once('mods/elements_of_surprise/files/codegen.lua')
-	text = 'eos_material_info='..eos_table_to_string(eos_material_info)
+	local text = 'eos_material_info='..eos_table_to_string(eos_material_info)
 	ModTextFileSetContent("mods/elements_of_surprise/files/eos_material_info.lua", text)
-
-	if ModIsEnabled('EnableLogger') then
-		dofile_once( "data/scripts/lib/utilities.lua" )
-		debug_print_table( eos_material_info )
-	end
 
 	local natural_material_chance = ModSettingGet('elements_of_surprise.natural_material_chance')
 	if natural ~= 'none' then

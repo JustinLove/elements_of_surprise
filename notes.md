@@ -24,7 +24,7 @@
 - x file with list of xmls to load?
 - x logging option
 - x spells
-- gold texture issue
+- x gold texture issue
 - material detector puzzles
 - materials in barrels
 - all damage models?

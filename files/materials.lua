@@ -31,91 +31,100 @@ function eos_create_materials(materials)
 		end
 	end
 
-	for looks_like,list in pairs(materials) do
-		looks_like = string.lower(looks_like)
+	for _,list in pairs(materials) do
+		local looks_like = string.lower(list[1])
 		local el_looks_like = element_index[looks_like]
 
 		if not el_looks_like then
 			print('could not find ', looks_like)
 		end
 
-		for i,acts_like in ipairs(list) do
-			acts_like = string.lower(acts_like)
-			local el_acts_like = element_index[acts_like]
+		local acts_like = string.lower(list[2])
+		local el_acts_like = element_index[acts_like]
 
-			if not_el_acts_like then
-				print('could not find ', acts_like)
-			end
-
-			if el_acts_like and el_looks_like then
-				local new_wang_color = string.format("%08x", wang_color)
-				local el = nxml.new_element( 'CellDataChild', {
-					_parent=el_acts_like.attr.name, -- using element in case CAPS_NAME
-					_inherit_reactions="1",
-					name='actual_'..looks_like,
-					ui_name=el_looks_like.attr.ui_name,
-					--ui_name='Actual '..looks_like,
-					wang_color=new_wang_color,
-					gfx_glow=el_looks_like.attr.gfx_glow or "0",
-					danger_radioactive=el_looks_like.attr.danger_radioactive or '0',
-					danger_fire=el_looks_like.attr.danger_fire or '0',
-					danger_water=el_looks_like.attr.danger_water or '0',
-					danger_poison=el_looks_like.attr.danger_poison or '0',
-				})
-				if el_looks_like.attr.on_fire == "1" then
-					el.attr.burnable="1"
-					el.attr.generates_smoke="0"
-					el.attr.generates_flames="0"
-					el.attr.on_fire="1"
-					el.attr.fire_hp="-1"
-					el.attr.requires_oxygen="0"
-					el.attr.temperature_of_fire="0"
-				end
-				if el_acts_like.attr.gfx_glow and el.attr.gfx_glow then
-					local ll = tonumber(el.attr.gfx_glow)
-					local al = tonumber(el_acts_like.attr.gfx_glow)
-					local glow = ll + math.floor((al-ll)*0.1)
-					el.attr.gfx_glow = tostring(glow)
-				end
-				local start,nd = string.find(el_acts_like.attr.tags or '', '[evaporable_custom],',nil,true)
-				if start then
-					el.attr.tags = string.gsub(el_acts_like.attr.tags, '%[evaporable_custom%],', '')
-				end
-				start,nd = string.find(el_acts_like.attr.tags or '', '[meltable_metal],',nil,true)
-				if start then
-					el.attr.tags = string.gsub(el_acts_like.attr.tags, '%[meltable_metal%],', '')
-				end
-				--print(tostring(el_looks_like))
-				local graphics = el_looks_like:first_of('Graphics')
-				if graphics then
-					el:add_child(nxml.new_element('Graphics', {
-						color = graphics.attr.color,
-						texture_file = graphics.attr.texture_file or '',
-						fire_colors_index = graphics.attr.fire_colors_index,
-					}))
-				else
-					el:add_child(nxml.new_element('Graphics', {
-						color = el_looks_like.attr.wang_color,
-						texture_file = '',
-					}))
-				end
-				local effect = el_acts_like:first_of('ParticleEffect')
-				if effect then
-					el:add_child(effect)
-				end
-				local explosion = el_acts_like:first_of('ExplosionConfig')
-				if explosion then
-					el:add_child(explosion)
-				end
-				--print(tostring(el))
-				info.wang_colors[el_looks_like.attr.wang_color] = el.attr.wang_color
-				info.name_to_mimic[looks_like] = el.attr.name
-				info.name_to_effect[acts_like] = el.attr.name
-				local new_elements = files[el_acts_like.file_index].new_elements
-				new_elements[#new_elements+1] = el
-				wang_color = wang_color + 1
-			end
+		if not_el_acts_like then
+			print('could not find ', acts_like)
 		end
+
+		if el_acts_like and el_looks_like then
+			local new_wang_color = string.format("%08x", wang_color)
+			local el = nxml.new_element( 'CellDataChild', {
+				_parent=el_acts_like.attr.name, -- using element in case CAPS_NAME
+				_inherit_reactions="1",
+				name='actual_'..looks_like,
+				ui_name=el_looks_like.attr.ui_name,
+				--ui_name='Actual '..looks_like,
+				wang_color=new_wang_color,
+				gfx_glow=el_looks_like.attr.gfx_glow or "0",
+				danger_radioactive=el_looks_like.attr.danger_radioactive or '0',
+				danger_fire=el_looks_like.attr.danger_fire or '0',
+				danger_water=el_looks_like.attr.danger_water or '0',
+				danger_poison=el_looks_like.attr.danger_poison or '0',
+			})
+			if el_looks_like.attr.on_fire == "1" then
+				el.attr.burnable="1"
+				el.attr.generates_smoke="0"
+				el.attr.generates_flames="0"
+				el.attr.on_fire="1"
+				el.attr.fire_hp="-1"
+				el.attr.requires_oxygen="0"
+				el.attr.temperature_of_fire="0"
+			end
+			if el_acts_like.attr.gfx_glow and el.attr.gfx_glow then
+				local ll = tonumber(el.attr.gfx_glow)
+				local al = tonumber(el_acts_like.attr.gfx_glow)
+				local glow = ll + math.floor((al-ll)*0.1)
+				el.attr.gfx_glow = tostring(glow)
+			end
+			local start,nd = string.find(el_acts_like.attr.tags or '', '[evaporable_custom],',nil,true)
+			if start then
+				el.attr.tags = string.gsub(el_acts_like.attr.tags, '%[evaporable_custom%],', '')
+			end
+			start,nd = string.find(el_acts_like.attr.tags or '', '[meltable_metal],',nil,true)
+			if start then
+				el.attr.tags = string.gsub(el_acts_like.attr.tags, '%[meltable_metal%],', '')
+			end
+			--print(tostring(el_looks_like))
+			local graphics = el_looks_like:first_of('Graphics')
+			if graphics then
+				el:add_child(nxml.new_element('Graphics', {
+					color = graphics.attr.color,
+					texture_file = graphics.attr.texture_file or '',
+					fire_colors_index = graphics.attr.fire_colors_index,
+				}))
+			else
+				el:add_child(nxml.new_element('Graphics', {
+					color = el_looks_like.attr.wang_color,
+					texture_file = '',
+				}))
+			end
+			local effect = el_acts_like:first_of('ParticleEffect')
+			if effect then
+				el:add_child(effect)
+			end
+			local explosion = el_acts_like:first_of('ExplosionConfig')
+			if explosion then
+				el:add_child(explosion)
+			end
+			--print(tostring(el))
+			info.wang_colors[el_looks_like.attr.wang_color] = el.attr.wang_color
+			info.name_to_mimic[looks_like] = el.attr.name
+			info.name_to_effect[acts_like] = el.attr.name
+			local new_elements = files[el_acts_like.file_index].new_elements
+			new_elements[#new_elements+1] = el
+			wang_color = wang_color + 1
+		end
+	end
+
+	-- materials in the same file get sorted, perhaps by type.
+	-- this can cause later material ids to change
+	-- moving vanilla materials into our append file prevents core mats like glass and gold from changing
+	-- but mod materials may still have issues.
+	-- Reason: it seems like entity files get cached, including the id of their material (e.g. gold_box2d is 440)
+	-- if Noita soft restarts between games, these entities have the old id, but it may be a new or invalid material.
+	if #(files[1].new_elements) > 0 then
+		files[2].xml:add_children(files[1].new_elements)
+		files[1].new_elements = {}
 	end
 
 	for _,file in ipairs(files) do
@@ -183,7 +192,7 @@ function eos_randomize_materials(looks_names, acts_names, materials)
 	shuffleTable(acts_like_names)
 	for i,name in ipairs(looks_names) do
 		if name ~= acts_like_names[i] then
-			materials[name] = {acts_like_names[i]}
+			materials[#materials+1] = {name, acts_like_names[i]}
 		end
 	end
 

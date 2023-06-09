@@ -16,6 +16,18 @@ function eos_test_player_spawned(player_entity)
 	--EntityLoad( "data/entities/items/pickup/potion_aggressive.xml", x+2, y )
 end
 
+function eos_list_materials()
+	for i = 1,1000 do
+		local name = CellFactory_GetName(i)
+		if name ~= 'unknown' then
+			local ui = CellFactory_GetUIName(i)
+			print(i, name, ui)
+		else
+			break
+		end
+	end
+end
+
 -- from cheatgui
 local function empty_container_of_materials(idx)
 	for _ = 1, 1000 do -- avoid infinite loop

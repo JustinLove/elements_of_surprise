@@ -1,3 +1,4 @@
+-- CAUTION: we assume the index of the first two entries
 eos_material_xml_list = {
 	"data/materials.xml",
 	"mods/elements_of_surprise/files/materials.xml",
