@@ -55,6 +55,12 @@ function OnMagicNumbersAndWorldSeedInitialized()
 	ModLuaFileAppend( "data/scripts/items/potion.lua", "mods/elements_of_surprise/files/potion.lua" )
 	ModLuaFileAppend( "data/scripts/items/potion_aggressive.lua", "mods/elements_of_surprise/files/potion.lua" )
 	ModLuaFileAppend( "data/scripts/items/potion_starting.lua", "mods/elements_of_surprise/files/potion_starting.lua" )
+	if ModSettingGet('elements_of_surprise.enable_spells') ~= false then
+		eos_create_spells = true
+		dofile_once("data/scripts/gun/gun_enums.lua")
+		dofile( "data/scripts/gun/gun_actions.lua" )
+		eos_create_spells = false
+	end
 end
 
 ModLuaFileAppend( "data/scripts/biomes/temple_altar_top_shared.lua", "mods/elements_of_surprise/files/temple_altar_top_shared.lua" )

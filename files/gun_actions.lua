@@ -1,4 +1,3 @@
-dofile_once("data/scripts/gun/gun_enums.lua")
 dofile('mods/elements_of_surprise/files/eos_material_info.lua')
 dofile('mods/elements_of_surprise/files/translations.lua')
 --dofile_once( "data/scripts/lib/utilities.lua" )
@@ -12,6 +11,17 @@ local function edit_spell(content, material, mimic, source, dest)
 	return content
 end
 
+local function edit_level_1(content, from, to)
+	from = '"'..from..'",'
+	to = from..'"'..to..'",'
+	content = string.gsub(content, from, to)
+	return content
+end
+
+eos_create_spells = _G['eos_create_spells'] or false
+-- if action types aren't defined here, they aren't defined in the spells and we can't use them.
+eos_types_undefined = not _G['ACTION_TYPE_MATERIAL']
+
 if _G['eos_material_info'] then
 	for i = 1,#actions do
 		action = actions[i]
@@ -20,7 +30,7 @@ if _G['eos_material_info'] then
 		local id
 		local projectile
 		local fun
-		if action.type == ACTION_TYPE_MATERIAL then
+		if eos_types_undefined or action.type == ACTION_TYPE_MATERIAL then
 			if string.sub(action.id,1,4) == 'SEA_' then
 				material = string.lower(string.sub(action.id, 5))
 				mimic = eos_material_info.name_to_mimic[material]
@@ -32,7 +42,8 @@ if _G['eos_material_info'] then
 						c.fire_rate_wait = c.fire_rate_wait + 15
 					end
 				end
-			elseif string.sub(action.id,1,9) == 'MATERIAL_' then
+			end
+			if string.sub(action.id,1,9) == 'MATERIAL_' then
 				material = string.lower(string.sub(action.id, 10))
 				mimic = eos_material_info.name_to_mimic[material]
 				id = "EOS_MATERIAL_"
@@ -45,7 +56,8 @@ if _G['eos_material_info'] then
 						current_reload_time = current_reload_time - 10
 					end
 				end
-			elseif string.sub(action.id,1,7) == 'CIRCLE_' then
+			end
+			if string.sub(action.id,1,7) == 'CIRCLE_' then
 				material = string.lower(string.sub(action.id, 8))
 				mimic = eos_material_info.name_to_mimic[material]
 				id = "EOS_CIRCLE_"
@@ -56,7 +68,8 @@ if _G['eos_material_info'] then
 						c.fire_rate_wait = c.fire_rate_wait + 20 
 					end
 				end
-			elseif string.sub(action.id,1,6) == 'TOUCH_' then
+			end
+			if string.sub(action.id,1,6) == 'TOUCH_' then
 				material = string.lower(string.sub(action.id, 7))
 				mimic = eos_material_info.name_to_mimic[material]
 				id = "EOS_TOUCH_"
@@ -67,7 +80,8 @@ if _G['eos_material_info'] then
 					end
 				end
 			end
-		elseif action.type == ACTION_TYPE_STATIC_PROJECTILE then
+		end
+		if eos_types_undefined or action.type == ACTION_TYPE_STATIC_PROJECTILE then
 			if string.sub(action.id,1,6) == 'CLOUD_' then
 				material = string.lower(string.sub(action.id, 7))
 				mimic = eos_material_info.name_to_mimic[material]
@@ -92,7 +106,8 @@ if _G['eos_material_info'] then
 					end
 				end
 			end
-		elseif action.type == ACTION_TYPE_MODIFIER then
+		end
+		if eos_types_undefined or action.type == ACTION_TYPE_MODIFIER then
 			if string.sub(action.id,-6) == '_TRAIL' then
 				material = string.lower(string.sub(action.id, 1, -7))
 				mimic = eos_material_info.name_to_mimic[material]
@@ -136,10 +151,17 @@ if _G['eos_material_info'] then
 			}
 			if projectile then
 				act.related_projectiles = {projectile}
-				if not GameHasFlagRun('EOS_CREATED_SPELLS') then
+				if eos_create_spells then
 					local text = ModTextFileGetContent( action.related_projectiles[1] )
 					if text then
 						ModTextFileSetContent( projectile, edit_spell( text, material, mimic, action.related_projectiles[1], projectile ) )
+					end
+					if action.id == 'CLOUD_WATER' then
+						local path = 'data/scripts/gun/procedural/level_1_wand.lua'
+						local text = ModTextFileGetContent(path)
+						if text then
+							ModTextFileSetContent( path, edit_level_1(text, action.id, act.id))
+						end
 					end
 				end
 			end
@@ -147,8 +169,6 @@ if _G['eos_material_info'] then
 			table.insert(actions, i+1, act)
 		end
 	end
-
-	GameAddFlagRun('EOS_CREATED_SPELLS')
 else
 	print('gun_actions.lua was evaluated without Elements of Surprise spells')
 end
