@@ -61,6 +61,8 @@ eos_action_alcohol_blast,Explosion of Actual Spirits,,,,,,,,,,,,,
 eos_actiondesc_alcohol_blast,"A very mysterious explosion",,,,,,,,,,,,,
 eos_action_poison_blast,Explosion of Actual Poison,,,,,,,,,,,,,
 eos_actiondesc_poison_blast,"An actual alchemical explosion",,,,,,,,,,,,,
+eos_action_acidshot,Acutal Acid ball,,,,,,,,,,,,,
+eos_actiondesc_acidshot,"An actually terrifying surprise projectile",,,,,,,,,,,,,
 ]]
 
 local function append_translations(content)

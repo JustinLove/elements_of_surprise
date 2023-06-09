@@ -107,6 +107,20 @@ if _G['eos_material_info'] then
 				end
 			end
 		end
+		if eos_types_undefined or action.type == ACTION_TYPE_PROJECTILE then
+			if action.id == 'ACIDSHOT' then
+				material = 'acid'
+				mimic = eos_material_info.name_to_mimic[material]
+				id = "EOS_SHOT_"
+				if mimic then
+					projectile = string.gsub(action.related_projectiles[1], material, mimic)
+					fun = function()
+						add_projectile(projectile)
+						c.fire_rate_wait = c.fire_rate_wait + 10
+					end
+				end
+			end
+		end
 		if eos_types_undefined or action.type == ACTION_TYPE_MODIFIER then
 			if string.sub(action.id,-6) == '_TRAIL' then
 				material = string.lower(string.sub(action.id, 1, -7))
