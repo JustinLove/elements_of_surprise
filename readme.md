@@ -45,6 +45,6 @@ eos_material_info = {
 ## Thanks
 
 - zatherz [Lua NXML](https://github.com/zatherz/luanxml)
-- Mofobert for the cover image
+- [Mofobert](https://steamcommunity.com/id/mofobert/) for the cover image
 - Atomguy for the mod name
 - Part of the [2023 Noita Mimic Mod Jam](https://discord.com/channels/453998283174576133/1110628700086620260)
