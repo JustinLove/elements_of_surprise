@@ -53,7 +53,14 @@
     output_cell1="fake_liquid_fire" 		output_cell2="fire"  >
   </Reaction>
 
-  <Reaction probability="10"
+  <Reaction probability="7"
+    input_cell1="fake_liquid_fire" 		input_cell2="air"
+    output_cell1="fake_liquid_fire" 		output_cell2="fire"
+    direction="top"
+    >
+  </Reaction>
+
+  <Reaction probability="5"
     input_cell1="fake_liquid_fire" 		input_cell2="air"
     output_cell1="fake_liquid_fire" 		output_cell2="smoke"
     direction="top"
