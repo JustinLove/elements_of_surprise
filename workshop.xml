@@ -2,7 +2,7 @@
   name="Elements of Surprise"
   description=""
   dont_upload_folders="work|junk"
-  dont_upload_files="notes.md|readme.md|changelog.md"
+  dont_upload_files="notes.md|readme.md|readme.bbcode|changelog.md"
   tags="gameplay,alchemy,funny"
 > 
 </Mod>
